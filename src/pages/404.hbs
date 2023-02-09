@@ -1,0 +1,21 @@
+---
+title: 404
+code: 404
+message: Извините, здесь ничего нет
+---
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="./page_error_main.pcss">
+    <link rel="stylesheet" href="../components/error_block.pcss">
+</head>
+<body>
+    <div class="main">
+        {{>error_block code=code message=message }}
+    </div>
+</body>
+</html>
