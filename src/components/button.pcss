@@ -1,13 +1,19 @@
+:root {
+    --button-bg-color: #5162BC;
+    --button-text-color: #FFFFFF;
+    --button-bg-hover: #7986c3;
+}
+
 button {
     width: 180px;
     height: 41px;
-    background: #5162BC;
+    background: var(--button-bg-color);
     border: 0px;
     border-radius: 10px;
     font-size: 14px;
-    color: #FFFFFF;
+    color: var(--button-text-color);
 }
 
 button:hover {
-    background: #7986c3;
+    background: var(--button-bg-hover);
 }

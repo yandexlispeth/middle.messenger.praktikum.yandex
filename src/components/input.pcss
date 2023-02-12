@@ -1,8 +1,13 @@
+:root {
+  --input-bg-color: #E7E8EC;
+  --input-placeholder-color: #AEABAB;
+}
+
 .input-text_field {
   box-sizing: border-box;
   text-align: left;
   padding-left: 14px;
-  background: #e7e8ec;
+  background: var(--input-bg-color);
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -15,7 +20,7 @@
 
 .input-text_field::placeholder {
   opacity: 0.5;
-  color: #aeabab;
+  color: var(--input-placeholder-color);
   font-family: "Titillium Web";
   font-style: normal;
   font-weight: 400;

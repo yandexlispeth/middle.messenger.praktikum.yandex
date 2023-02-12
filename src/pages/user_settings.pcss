@@ -1,3 +1,8 @@
+:root {
+    --avatar-caption-bg-color: #91A3D880;
+    --avatar-caption-text-color: #FFFFFF;
+}
+
 .main {
     display: flex;
     align-items: center;
@@ -50,9 +55,9 @@
     transition: 0.5s;
     width:55%;
     font-size:15px;
-    background-color:rgba(145, 163, 216, 0.5);
+    background-color: var(--avatar-caption-bg-color);
     padding:10px 5px;
-    color:#fff;
+    color: var(--avatar-caption-text-color);
 }
 
 .user-data-avatar__container:hover .image-avatar__caption {
