@@ -24,9 +24,8 @@ button:
         <link rel="stylesheet" href="../components/navigation.pcss">
         <link rel="stylesheet" href="../components/button.pcss">
         <link rel="stylesheet" href="../components/input.pcss">
-        
-
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{title}}</title>
 </head>
 <body>
@@ -35,16 +34,18 @@ button:
                         <div class="nav__container">
                         {{>navigation navigation}}
                         </div>
-                        <form class="input-fields__container">
-                                {{#each fields}}
-                                <div class="input-field">
-                                        {{>input type="text" name=@key placeholder=this}}
-                                </div> 
-                                {{/each}}
-                        </form>
-                        <div class="button__container">
-                        {{>button label=button.label}}
-                        </div>
+                        <main>
+                                <form class="input-fields__container">
+                                        {{#each fields}}
+                                        <div class="input-field">
+                                                {{>input type="text" name=@key placeholder=this}}
+                                        </div> 
+                                        {{/each}}
+                                        <div class="button__container">
+                                                {{>button label=button.label}}
+                                        </div>
+                                </form>
+                        </main>
                 </div>
         </div>
 </body>
