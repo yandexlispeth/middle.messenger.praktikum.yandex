@@ -1,0 +1,49 @@
+---
+title:
+   Авторизация
+navigation:
+   link1: ../pages/authorization.hbs
+   menu_title1: Вход
+   link2: ../pages/registration.hbs
+   menu_title2: Регистрация
+fields: 
+   login: Логин
+   password: Пароль
+button:
+   label: Авторизоваться
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link rel="stylesheet" href="../pages/authorization.pcss">
+        <link rel="stylesheet" href="../components/navigation.pcss">
+        <link rel="stylesheet" href="../components/button.pcss">
+        <link rel="stylesheet" href="../components/input.pcss">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{title}}</title>
+</head>
+<body>
+        <div class="main">
+                <div class="auth-form__container">
+                        <div class="nav__container">
+                        {{>navigation navigation}}
+                        </div>
+                        <main>
+                        <form class="input-fields__container">
+                                {{#each fields}}
+                                        <div class="input-field">
+                                                {{>input type="text" name=@key placeholder=this}}
+                                        </div> 
+                                {{/each}}
+                                <div class="button__container">
+                                        {{>button label=button.label}}
+                                </div>
+                        </form>
+                        </main>
+                </div>
+                
+        </div>
+</body>
+</html>
