@@ -4,7 +4,7 @@
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main.  ### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).",
   "scripts": {
     "start": "npm run build && node ./server.js",
-    "dev": "parcel index.hbs --no-cache",
+    "dev": "parcel index.html --no-cache",
     "build": "parcel build index.hbs --no-cache"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
     "express": "4.18.2",
     "handlebars": "4.7.7",
-    "parcel": "2.8.3"
+    "parcel": "2.8.3",
+    "typescript": "4.9.5"
   }
 }
