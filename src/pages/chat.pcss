@@ -1,0 +1,130 @@
+.main {
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 310px auto;
+  grid-gap: 20px;
+  grid-auto-flow: row;
+}
+
+.grid * {
+  font-family: sans-serif;
+}
+
+.chats-grid {
+  background-color: #FBFBFB;
+  position: relative;
+  border-right: 1px solid #eaeaea;
+  font-size: 12px;
+  color: #999999;
+}
+
+.chat-search {
+    padding: 10px;
+}
+
+.label-profile {
+  position: absolute;
+  right: 10px;
+}
+
+.input-fields__container {
+  margin-left: 60px;
+  width: 224px;
+  margin-top: 83px;
+}
+
+.input-search__field {
+  margin-top: 40px;
+  margin-bottom: 17px;
+}
+
+.avatar {
+    height: 47px;
+    width:47px;
+}
+
+.avatar.small {
+    height: 34px;
+    width:34px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #EAEAEA;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.chats-profiles__container {
+    padding: 0 10px 10px 10px;
+    display: grid;
+}
+
+.profiles-wrapper {
+    display: flex;
+}
+
+.profile-info{
+    width: min-content;
+    margin: 10px;
+    display: inline-block;
+}
+.profile-info__name {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.profile-info__message {
+    display: inline-block;
+    color: #999999;
+    font-size: 12px;
+}
+
+.profile-info__time {
+    font-size: 9px;
+    display: block;
+    margin-left: auto;
+}
+
+.messages-grid {
+    padding: 10px;
+}
+
+.companion-info__wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.profile-info__name.messages {
+    width: 92%;
+    margin: 10px;
+}
+
+.messages-date {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    color: #999999;
+    margin-top: 48px;
+}
+
+.messages__container {
+    display: grid;
+    row-gap: 30px;
+    margin-top: 30px;
+}
+
+.messages__container * {
+    color: #1E1E1E;
+    font-size: 12px;
+}
