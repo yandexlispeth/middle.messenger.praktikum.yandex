@@ -1,18 +1,18 @@
-import { Block } from "../../utils/Block";
+import Block from "../../utils/Block";
 import template from "./button.hbs";
 
 interface IButtonProps {
     label: string;
-    events: {
+    className?: string;
+    events?: {
         click: () => void
     }
 }
 
-
 export class Button extends Block {
+    // <IButtonProps, HTMLButtonElement>{
     constructor(props: IButtonProps) {
-        super('button', props);
-        this.props = props;
+        super(props);
     }
 
     init() {
@@ -22,6 +22,4 @@ export class Button extends Block {
     render() {
         return this.compile(template, this.props);
     }
-
-    private props;
 }
