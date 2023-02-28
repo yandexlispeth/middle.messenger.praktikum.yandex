@@ -2,7 +2,7 @@ import template from "./avatar.hbs";
 import Block from "../../utils/Block";
 
 interface IAvatar {
-    class:string;
+    class?:string;
 }
 
 export class Avatar extends Block {

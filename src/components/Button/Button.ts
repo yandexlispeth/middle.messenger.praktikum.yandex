@@ -2,8 +2,8 @@ import Block from "../../utils/Block";
 import template from "./button.hbs";
 
 interface IButtonProps {
-    label: string;
-    className?: string;
+    label?: string;
+    class?: string;
     events?: {
         click: () => void
     }
