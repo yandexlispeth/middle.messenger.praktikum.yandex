@@ -20,9 +20,9 @@ export class AuthorizationPage extends Block {
             }
             ],
             buttons: {
-                label: "Вход"
+                label: "Авторизоваться"
             },
-            class: "input-fields__container"
+            class: "auth-form"
         });
 
 

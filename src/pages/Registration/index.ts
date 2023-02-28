@@ -41,7 +41,8 @@ export class RegistrationPage extends Block {
             ],
             buttons: {
                 label: "Зарегистрироваться"
-            }
+            },
+            class: "register-form"
         });
 
 

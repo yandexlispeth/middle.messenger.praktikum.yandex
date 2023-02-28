@@ -1,44 +1,45 @@
 :root {
-  --form-container-color: #FFF;
-  --form-border-color: #5162BC;
+  --form-container-color: #fff;
+  --form-border-color: #5162bc;
 }
 
 .main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  
-  .register-form__container {
-    box-sizing: border-box;
-    width: 340px;
-    height: 636px;
-    padding-top: 58px;
-    border: 1px solid;
-    background: var(--form-container-color);
-    background-blend-mode: multiply;
-    border-width: 4px 0.5px;
-    border-style: solid;
-    border-color: var(--form-border-color);
-    border-radius: 30px;
-  }
-  
-  .nav__container {
-    text-align: center;
-  }
-  
-  .input-fields__container {
-    margin-left:60px;
-    width:224px;
-    margin-top: 83px;
-  }
-  
-  .input-field {
-    margin-top: 22px;
-  }
-  
-  .button__container {
-    text-align: center;
-    margin-top: 50px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.register-form__container {
+  position: relative;
+  box-sizing: border-box;
+  width: 340px;
+  height: 636px;
+  padding-top: 58px;
+  border: 1px solid;
+  background: var(--form-container-color);
+  background-blend-mode: multiply;
+  border-width: 4px 0.5px;
+  border-style: solid;
+  border-color: var(--form-border-color);
+  border-radius: 30px;
+}
+
+.nav__container {
+  text-align: center;
+}
+
+.register-form {
+  position: absolute;
+  margin: 0 auto;
+  top: 150px;
+  left: 50px;
+  width: 224px;
+}
+
+.register-form button {
+  text-align: center;
+  margin-left: 30px;
+  margin-top: 60px;
+  margin-bottom: auto;
+}

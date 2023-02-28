@@ -12,6 +12,5 @@ export class Avatar extends Block {
 
     render() {
         return this.compile(template, this.props);
-
     }
 }

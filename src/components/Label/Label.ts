@@ -3,7 +3,7 @@ import template from "./label.hbs";
 
 
 interface ILabel {
-    text: string,
+    value: string,
     class?: string
 }
 
