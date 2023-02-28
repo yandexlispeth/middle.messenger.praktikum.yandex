@@ -79,6 +79,7 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected init() {}
 
   _componentDidMount() {
@@ -130,6 +131,7 @@ export default class Block {
     return temp.content;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected componentDidMount() {}
 
   dispatchComponentDidMount() {
@@ -170,20 +172,15 @@ export default class Block {
   }
 
   _render() {
-    console.log("render");
     const fragment = this.render();
 
     const newElement = fragment.firstElementChild as HTMLElement;
-
-    console.log("newElement", newElement);
 
     if (this._element) {
       this._element.replaceWith(newElement);
     }
 
     this._element = newElement;
-
-    console.log("_ELEMENT", this._element);
 
     // this._removeEvents();
 
