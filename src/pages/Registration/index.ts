@@ -16,7 +16,7 @@ export class RegistrationPage extends Block {
             {
                 type: "text",
                 name: "login",
-                placeholder: "Пароль"
+                placeholder: "Логин"
             },
             {
                 type: "text",

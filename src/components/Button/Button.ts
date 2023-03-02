@@ -2,24 +2,24 @@ import Block from "../../utils/Block";
 import template from "./button.hbs";
 
 interface IButtonProps {
-    label?: string;
-    class?: string;
-    events?: {
-        click: () => void
-    }
+  label?: string;
+  class?: string;
+  events?: {
+    click: () => void;
+  };
 }
 
 export class Button extends Block {
-    // <IButtonProps, HTMLButtonElement>{
-    constructor(props: IButtonProps) {
-        super(props);
-    }
+  // <IButtonProps, HTMLButtonElement>{
+  constructor(props: IButtonProps) {
+    super(props);
+  }
 
-    init() {
-        console.log('Button inited');
-    }
+  init() {
+    console.log("Button inited");
+  }
 
-    render() {
-        return this.compile(template, this.props);
-    }
+  render() {
+    return this.compile(template, this.props);
+  }
 }

@@ -2,16 +2,19 @@ import Form from "../../components/Form";
 import Block from "../../utils/Block";
 import template from "./user_change_password.hbs";
 import ProfileInfoBlock from "../../components/ProfileInfoBlock";
+import { renderDOM } from "../../utils/renderDOM";
 
 export class UserChangePasswordPage extends Block {
-
   init() {
     this.children.profileInfoBlock = new ProfileInfoBlock({
-      labelUserName: { value: "Алина"},
-      labelEmail: {value: "alinamalina@gmail.com"},
-      button: {label: "Изменить данные"}
-  });
-    this.children.formUserChangePassword= new Form({
+      labelUserName: { value: "Алина" },
+      labelEmail: { value: "alinamalina@gmail.com" },
+      button: {
+        label: "Изменить данные",
+        events: { click: () => renderDOM("user_settings") },
+      },
+    });
+    this.children.formUserChangePassword = new Form({
       fields: [
         {
           type: "password",
@@ -32,7 +35,7 @@ export class UserChangePasswordPage extends Block {
       buttons: {
         label: "Сохранить изменения",
       },
-      class: "input-fields__container"
+      class: "input-fields__container",
     });
   }
 

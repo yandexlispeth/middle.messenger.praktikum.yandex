@@ -10,6 +10,9 @@ interface IProfileInfoLabel {
 
 interface IProfileInfoButton {
   label: string;
+  events? : {
+    click: () => void
+  }
 }
 
 interface IProfileInfoBlock {
@@ -34,6 +37,7 @@ export class ProfileInfoBlock extends Block {
     });
     this.children.btnChangePswd = new Button({
       label: this.props.button.label,
+      events: this.props.button.events
     });
   }
 
