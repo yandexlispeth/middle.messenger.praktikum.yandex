@@ -1,7 +1,7 @@
 import Form from "../../components/Form";
 import Block from "../../utils/Block";
 import template from "./user_change_password.hbs";
-import ProfileInfoBlock from "../../components/ProfileInfoBlock";
+import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
 import { renderDOM } from "../../utils/renderDOM";
 
 export class UserChangePasswordPage extends Block {
@@ -17,19 +17,26 @@ export class UserChangePasswordPage extends Block {
     this.children.formUserChangePassword = new Form({
       fields: [
         {
-          type: "password",
-          name: "oldPassword",
-          placeholder: "Старый пароль",
+          input: {
+            type: "password",
+            name: "oldPassword",
+            placeholder: "Старый пароль",
+          }
+          
         },
         {
-          type: "password",
-          name: "newPassword",
-          placeholder: "Новый пароль",
+          input: {
+            type: "password",
+            name: "newPassword",
+            placeholder: "Новый пароль",
+          }
         },
         {
-          type: "password",
-          name: "newPasswordAgain",
-          placeholder: "Новый пароль ещё раз",
+          input: {
+            type: "password",
+            name: "newPasswordAgain",
+            placeholder: "Новый пароль ещё раз",
+          }
         },
       ],
       buttons: {

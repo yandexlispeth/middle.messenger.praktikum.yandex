@@ -1,6 +1,6 @@
 import Block from "../../utils/Block";
-import Label from "../Label";
-import Button from "../Button";
+import Label from "../../components/Label";
+import Button from "../../components/Button";
 import template from "./profileInfoBlock.hbs";
 
 interface IProfileInfoLabel {

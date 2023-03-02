@@ -1,12 +1,14 @@
 import Avatar from "../../components/Avatar";
 import Button from "../../components/Button";
-import ChatMessageItem from "../../components/ChatMessageItem";
-import { ContextMenu } from "../../components/ContextMenu/ContextMenu";
+import ChatMessageItem from "../../blocks/ChatMessageItem";
+import { ContextMenu } from "../../blocks/ContextMenu/ContextMenu";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
-import Message from "../../components/Message";
+import Message from "../../blocks/Message";
 import Block from "../../utils/Block";
+import { renderDOM } from "../../utils/renderDOM";
 import template from "./chat.hbs";
+import { Field } from "../../blocks/Field/Field";
 
 
 export class ChatPage extends Block {
@@ -20,7 +22,10 @@ export class ChatPage extends Block {
 
         this.children.labelProfile = new Label({
             value: "Профиль > ",
-            class: "label-profile"
+            class: "label-profile",
+            events: {
+                click: () => renderDOM("user_settings")
+            }
         });
 
         this.children.inputSearch = new Input({
@@ -92,10 +97,12 @@ export class ChatPage extends Block {
             message_time: "10:00"
         });
 
-        this.children.messagesInput = new Input({
-            type: "text",
-            name: "messages",
-            placeholder: "Сообщение"
+        this.children.messagesField = new Field({
+            input: {
+                type: "text",
+                name: "message",
+                placeholder: "Сообщение"
+            }
         });
 
         this.children.sendButton = new Button({});

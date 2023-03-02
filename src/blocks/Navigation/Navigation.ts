@@ -20,5 +20,4 @@ export class Navigation extends Block {
     render() {
         return this.compile(template, this.props);
     }
-
 }

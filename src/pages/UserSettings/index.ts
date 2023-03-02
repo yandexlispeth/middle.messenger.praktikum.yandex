@@ -1,5 +1,5 @@
 import Form from "../../components/Form";
-import { ProfileInfoBlock } from "../../components/ProfileInfoBlock/ProfileInfoBlock";
+import { ProfileInfoBlock } from "../../blocks/ProfileInfoBlock/ProfileInfoBlock";
 import Block from "../../utils/Block";
 import { renderDOM } from "../../utils/renderDOM";
 import template from "./user_settings.hbs";
@@ -18,34 +18,46 @@ export class UserSettingsPage extends Block {
     this.children.formUserSettings = new Form({
       fields: [
         {
-          type: "text",
-          name: "email",
-          placeholder: "Почта",
+          input: {
+            type: "text",
+            name: "email",
+            placeholder: "Почта",
+          },
         },
         {
-          type: "text",
-          name: "login",
-          placeholder: "Логин",
+          input: {
+            type: "text",
+            name: "login",
+            placeholder: "Логин",
+          },
         },
         {
-          type: "text",
-          name: "display_name",
-          placeholder: "Ник",
+          input: {
+            type: "text",
+            name: "display_name",
+            placeholder: "Ник",
+          },
         },
         {
-          type: "text",
-          name: "phone",
-          placeholder: "Телефон",
+          input: {
+            type: "text",
+            name: "phone",
+            placeholder: "Телефон",
+          },
         },
         {
-          type: "text",
-          name: "first_name",
-          placeholder: "Имя",
+          input: {
+            type: "text",
+            name: "first_name",
+            placeholder: "Имя",
+          },
         },
         {
-          type: "text",
-          name: "second_name",
-          placeholder: "Фамилия",
+          input: {
+            type: "text",
+            name: "second_name",
+            placeholder: "Фамилия",
+          },
         },
       ],
       buttons: {

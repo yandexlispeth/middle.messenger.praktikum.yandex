@@ -1,6 +1,6 @@
 import Block from "../../utils/Block";
-import Avatar from "../Avatar";
-import Label from "../Label";
+import Avatar from "../../components/Avatar";
+import Label from "../../components/Label";
 import template from "./chatMessageItem.hbs";
 
 interface IChatItemAvatar {
@@ -24,8 +24,6 @@ interface IChatMessageItem {
 export class ChatMessageItem extends Block {
     constructor(props:IChatMessageItem) {
         super(props);
-
-        console.log("LABELKAJSKJAHSD", props.labelChatName.value);
     }
 
     init() {

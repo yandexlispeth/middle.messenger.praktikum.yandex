@@ -1,15 +1,23 @@
 import Block from "../../utils/Block";
-import Input from "../Input";
 import Button from "../Button";
 import template from "./form.hbs";
+import { Field } from "../../blocks/Field/Field";
 
+
+interface IFormValidationErrorProps {
+  error_message?:string;
+}
 interface IFormFieldProps {
-  type: string;
-  name?: string;
-  placeholder?: string;
-  className?: string;
-  events?: {
-    click: () => void;
+  input: {
+    type: string;
+    name?: string;
+    placeholder?: string;
+    className?: string;
+    events?: {
+      focus?: () => void;
+      blur?: () => void;
+    };
+    validation_error?: IFormValidationErrorProps;
   };
 }
 
@@ -20,7 +28,7 @@ interface IFormButtonProps {
 }
 
 interface IFormProps {
-  fields: IFormFieldProps[];
+  fields: IFormFieldProps[] | IFormFieldProps;
   buttons: IFormButtonProps;
   class?: string;
   events?: {
@@ -34,12 +42,10 @@ export class Form extends Block {
   }
 
   init() {
-    const form_fields: Input[] = [];
+    const form_fields: Field[] = [];
 
-    console.log("ppoepi", this.props.fields);
-
-    this.props.fields.forEach((field_props: IFormFieldProps) => {
-      form_fields.push(new Input(field_props));
+    this.props.fields.forEach((field: IFormFieldProps) => {
+      form_fields.push(new Field(field));
     });
     this.children.fields = form_fields;
 
@@ -60,9 +66,8 @@ export class Form extends Block {
     const formData = new FormData(this.element as HTMLFormElement);
     let data_object = {};
 
-    for(const [name, value] of formData) {
-      console.log(name, value);
-      data_object = Object.assign(data_object, {[name]: value});
+    for (const [name, value] of formData) {
+      data_object = Object.assign(data_object, { [name]: value });
     }
     console.log(data_object);
   }

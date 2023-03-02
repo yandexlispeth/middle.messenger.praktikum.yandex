@@ -4,7 +4,10 @@ import template from "./label.hbs";
 
 interface ILabel {
     value: string,
-    class?: string
+    class?: string,
+    events?: {
+        click: () => void
+    }
 }
 
 export class Label extends Block {

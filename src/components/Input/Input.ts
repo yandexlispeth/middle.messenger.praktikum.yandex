@@ -7,9 +7,8 @@ interface IInput {
   placeholder?: string;
   class?: string;
   events?: {
-    click: () => void;
-    // onfocus: () => void;
-    // onblur: () => void;
+    focus?: () => void;
+    blur?: () => void;
   };
 }
 
@@ -22,19 +21,11 @@ export class Input extends Block {
     console.log("Input inited");
   }
 
-  //   dispatchComponentDidMount(): void {
-  //     console.log('МЕня вызвали');
-  //       Object.entries(this.props).forEach(([key, value]) => {
-  //         this.element?.setAttribute(key, "text");
-  //       })
-  //   }\
-
   get value() {
     return (this.element as HTMLInputElement).value;
   }
 
   render() {
-    // this.element.classList.add(this.props.className);
     return this.compile(template, this.props);
   }
 }
