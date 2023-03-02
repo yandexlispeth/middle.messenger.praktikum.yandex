@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
 import Button from "../Button";
 import template from "./form.hbs";
-import { Field } from "../../blocks/Field/Field";
+import Field from "../../blocks/Field";
 
 
 interface IFormValidationErrorProps {

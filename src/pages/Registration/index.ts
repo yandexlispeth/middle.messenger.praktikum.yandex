@@ -1,9 +1,9 @@
-import { Form } from "../../components/Form/Form";
+import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
 import Block from "../../utils/Block";
 import template from "./registration.hbs";
 
-export class RegistrationPage extends Block {
+export default class RegistrationPage extends Block {
   init() {
     this.children.formRegister = new Form({
       fields: [

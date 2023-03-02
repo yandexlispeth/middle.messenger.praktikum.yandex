@@ -1,8 +1,8 @@
-import { AuthorizationPage } from "../pages/Authorization";
-import { ChatPage } from "../pages/Chat";
-import { RegistrationPage } from "../pages/Registration";
-import { UserChangePasswordPage } from "../pages/UserChangePassword";
-import { UserSettingsPage } from "../pages/UserSettings";
+import AuthorizationPage from "../pages/Authorization";
+import ChatPage from "../pages/Chat";
+import RegistrationPage from "../pages/Registration";
+import UserChangePasswordPage from "../pages/UserChangePassword";
+import UserSettingsPage from "../pages/UserSettings";
 
 export const ROUTES = {
     authorization: AuthorizationPage,

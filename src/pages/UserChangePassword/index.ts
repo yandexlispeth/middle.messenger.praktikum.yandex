@@ -4,7 +4,7 @@ import template from "./user_change_password.hbs";
 import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
 import { renderDOM } from "../../utils/renderDOM";
 
-export class UserChangePasswordPage extends Block {
+export default class UserChangePasswordPage extends Block {
   init() {
     this.children.profileInfoBlock = new ProfileInfoBlock({
       labelUserName: { value: "Алина" },

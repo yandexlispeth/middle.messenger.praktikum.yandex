@@ -1,10 +1,10 @@
 import Form from "../../components/Form";
-import { ProfileInfoBlock } from "../../blocks/ProfileInfoBlock/ProfileInfoBlock";
+import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
 import Block from "../../utils/Block";
 import { renderDOM } from "../../utils/renderDOM";
 import template from "./user_settings.hbs";
 
-export class UserSettingsPage extends Block {
+export default class UserSettingsPage extends Block {
   init() {
     this.children.profileInfoBlock = new ProfileInfoBlock({
       labelUserName: { value: "Алина" },

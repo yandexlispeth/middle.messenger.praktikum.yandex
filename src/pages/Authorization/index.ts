@@ -1,9 +1,9 @@
-import { Form } from "../../components/Form/Form";
+import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
 import Block from "../../utils/Block";
 import template from "./authorization.hbs";
 
-export class AuthorizationPage extends Block {
+export default class AuthorizationPage extends Block {
   init() {
     this.children.formAuth = new Form({
       fields: [

@@ -1,17 +1,17 @@
 import Avatar from "../../components/Avatar";
 import Button from "../../components/Button";
 import ChatMessageItem from "../../blocks/ChatMessageItem";
-import { ContextMenu } from "../../blocks/ContextMenu/ContextMenu";
+import ContextMenu from "../../blocks/ContextMenu";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Message from "../../blocks/Message";
 import Block from "../../utils/Block";
 import { renderDOM } from "../../utils/renderDOM";
 import template from "./chat.hbs";
-import { Field } from "../../blocks/Field/Field";
+import Field from "../../blocks/Field";
 
 
-export class ChatPage extends Block {
+export default class ChatPage extends Block {
 
     init() {
         const text = "Lorem ipsum dolor sit amet, \
