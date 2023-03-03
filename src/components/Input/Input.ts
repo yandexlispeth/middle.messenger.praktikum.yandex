@@ -1,5 +1,5 @@
 import template from "./input.hbs";
-import Block from "../../utils/Block";
+import Block from "../Block";
 
 interface IInput {
   type: string;

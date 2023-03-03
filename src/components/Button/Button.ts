@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import Block from "../Block";
 import template from "./button.hbs";
 
 interface IButtonProps {
@@ -9,16 +9,7 @@ interface IButtonProps {
   };
 }
 
-export class Button extends Block {
-  // <IButtonProps, HTMLButtonElement>{
-  constructor(props: IButtonProps) {
-    super(props);
-  }
-
-  init() {
-    console.log("Button inited");
-  }
-
+export class Button extends Block<IButtonProps> {
   render() {
     return this.compile(template, this.props);
   }

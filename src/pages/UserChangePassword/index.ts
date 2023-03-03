@@ -1,5 +1,5 @@
 import Form from "../../components/Form";
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import template from "./user_change_password.hbs";
 import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
 import { renderDOM } from "../../utils/renderDOM";
@@ -42,7 +42,7 @@ export default class UserChangePasswordPage extends Block {
       buttons: {
         label: "Сохранить изменения",
       },
-      class: "input-fields__container",
+      class: "user-change_password__form",
     });
   }
 

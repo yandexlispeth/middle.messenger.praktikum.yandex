@@ -1,7 +1,11 @@
-import { EventBus } from "./EventBus";
+import { EventBus } from "../utils/EventBus";
 import { nanoid } from "nanoid";
+import { TemplateDelegate } from "handlebars";
 
-export default class Block {
+export default class Block<
+  P extends Record<string, any> = any,
+  E extends HTMLElement = HTMLElement
+> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -10,18 +14,18 @@ export default class Block {
   };
 
   public id = nanoid(6);
-  protected props: any;
+  protected props: P;
   public children: Record<string, Block | Block[]>;
   private eventBus: () => EventBus;
-  private _element: HTMLElement | null = null;
-  private _meta: { props: any };
+  private _element: E | null = null;
+  private _meta: { props: P };
 
   /** JSDoc
    * @param {Object} propsWithChildren
    *
    * @returns {void}
    */
-  constructor(propsWithChildren = {}) {
+  constructor(propsWithChildren: P = {} as P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -38,8 +42,8 @@ export default class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: any) {
-    const props: Record<string, any> = {};
+  _getChildrenAndProps(childrenAndProps: P) {
+    const props: P = {} as P;
     const children: Record<string, Block | Block[]> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
@@ -49,7 +53,7 @@ export default class Block {
         if (value instanceof Block) {
           children[key] = value;
         } else {
-          props[key] = value;
+          props[key as keyof P] = value;
         }
       }
     });
@@ -58,9 +62,7 @@ export default class Block {
   }
 
   _addEvents() {
-    const { events = {} } = this.props as {
-      events: Record<string, () => void>;
-    };
+    const { events = {} } = this.props as P;
 
     Object.keys(events).forEach((eventName) => {
       this._element!.addEventListener(eventName, events[eventName]);
@@ -68,9 +70,7 @@ export default class Block {
   }
 
   _removeEvents() {
-    const { events = {} } = this.props as {
-      events: Record<string, () => void>;
-    };
+    const { events = {} } = this.props as P;
 
     Object.keys(events).forEach((eventName) => {
       this._element!.removeEventListener(eventName, events[eventName]);
@@ -96,7 +96,7 @@ export default class Block {
     this.componentDidMount();
   }
 
-  protected compile(template: (context: any) => string, context: any) {
+  protected compile(template: TemplateDelegate, context: any) {
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
@@ -141,8 +141,9 @@ export default class Block {
     return temp.content;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected componentDidMount() {}
+  protected componentDidMount() {
+    return true;
+  }
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -158,18 +159,17 @@ export default class Block {
     });
   }
 
-  _componentDidUpdate(oldProps: any, newProps: any) {
+  _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidUpdate(oldProps: any, newProps: any) {
+  componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
@@ -184,7 +184,7 @@ export default class Block {
   _render() {
     const fragment = this.render();
 
-    const newElement = fragment.firstElementChild as HTMLElement;
+    const newElement = fragment.firstElementChild as E;
 
     if (this._element) {
       this._removeEvents();
@@ -192,7 +192,6 @@ export default class Block {
     }
 
     this._element = newElement;
-
 
     this._addEvents();
   }
@@ -205,17 +204,17 @@ export default class Block {
     return this.element;
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: P) {
     const self = this;
 
     props = new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
+        const value = target[prop as keyof P];
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value) {
-        if (target[prop] !== value) {
-          target[prop] = value;
+        if (target[prop as keyof P] !== value) {
+          target[prop as keyof P] = value;
           self.eventBus().emit(Block.EVENTS.FLOW_CDU);
         }
         return true;

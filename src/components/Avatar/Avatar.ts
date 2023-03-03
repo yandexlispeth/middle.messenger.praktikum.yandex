@@ -1,14 +1,11 @@
 import template from "./avatar.hbs";
-import Block from "../../utils/Block";
+import Block from "../Block";
 
-interface IAvatar {
+interface IAvatarProps {
     class?:string;
 }
 
-export class Avatar extends Block {
-    constructor(props:IAvatar) {
-        super(props);
-    }
+export class Avatar extends Block<IAvatarProps> {
 
     render() {
         return this.compile(template, this.props);

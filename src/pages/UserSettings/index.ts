@@ -1,6 +1,6 @@
 import Form from "../../components/Form";
 import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import { renderDOM } from "../../utils/renderDOM";
 import template from "./user_settings.hbs";
 

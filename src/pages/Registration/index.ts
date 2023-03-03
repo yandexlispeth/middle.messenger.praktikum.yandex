@@ -1,6 +1,6 @@
 import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import template from "./registration.hbs";
 
 export default class RegistrationPage extends Block {

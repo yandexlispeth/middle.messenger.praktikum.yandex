@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import Label from "../../components/Label";
 import Button from "../../components/Button";
 import template from "./profileInfoBlock.hbs";

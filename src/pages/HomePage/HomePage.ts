@@ -1,5 +1,5 @@
 import Link from "../../components/Link";
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import { renderDOM, ROUTES } from "../../utils/renderDOM";
 import template from "./homePage.hbs";
 

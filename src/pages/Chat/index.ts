@@ -5,7 +5,7 @@ import ContextMenu from "../../blocks/ContextMenu";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Message from "../../blocks/Message";
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import { renderDOM } from "../../utils/renderDOM";
 import template from "./chat.hbs";
 import Field from "../../blocks/Field";

@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import template from "./contextMenu.hbs";
 
 

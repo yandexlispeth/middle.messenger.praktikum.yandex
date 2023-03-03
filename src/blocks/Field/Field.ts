@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import Input from "../../components/Input";
 import ValidationError from "../../components/ValidationError";
 import template from "./field.hbs";

@@ -1,5 +1,5 @@
 import template from './validation_error.hbs';
-import Block from "../../utils/Block";
+import Block from "../Block";
 
 interface IValidationErrorProps {
   error_message: string;

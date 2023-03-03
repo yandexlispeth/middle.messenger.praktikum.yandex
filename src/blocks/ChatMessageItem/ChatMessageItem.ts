@@ -1,4 +1,4 @@
-import Block from "../../utils/Block";
+import Block from "../../components/Block";
 import Avatar from "../../components/Avatar";
 import Label from "../../components/Label";
 import template from "./chatMessageItem.hbs";
