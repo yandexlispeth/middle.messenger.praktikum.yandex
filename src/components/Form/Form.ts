@@ -3,9 +3,8 @@ import Button from "../Button";
 import template from "./form.hbs";
 import Field from "../../blocks/Field";
 
-
 interface IFormValidationErrorProps {
-  error_message?:string;
+  error_message?: string;
 }
 interface IFormFieldProps {
   input: {
@@ -36,17 +35,14 @@ interface IFormProps {
   };
 }
 
-export class Form extends Block {
-  constructor(props: IFormProps) {
-    super(props);
-  }
-
-  init() {
+export class Form extends Block<IFormProps, HTMLFormElement> {
+ init() {
     const form_fields: Field[] = [];
-
-    this.props.fields.forEach((field: IFormFieldProps) => {
-      form_fields.push(new Field(field));
-    });
+    if (Array.isArray(this.props.fields)) {
+      this.props.fields.forEach((field: IFormFieldProps) => {
+        form_fields.push(new Field(field));
+      });
+    }
     this.children.fields = form_fields;
 
     this.children.button = new Button(this.props.buttons);

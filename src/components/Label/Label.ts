@@ -2,7 +2,7 @@ import Block from "../Block";
 import template from "./label.hbs";
 
 
-interface ILabel {
+interface ILabelProps {
     value: string,
     class?: string,
     events?: {
@@ -10,11 +10,7 @@ interface ILabel {
     }
 }
 
-export class Label extends Block {
-    constructor(props:ILabel) {
-        super(props);
-    }
-
+export class Label extends Block<ILabelProps> {
     render() {
         return this.compile(template, this.props);
     }

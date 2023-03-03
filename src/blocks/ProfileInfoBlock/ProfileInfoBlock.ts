@@ -3,29 +3,25 @@ import Label from "../../components/Label";
 import Button from "../../components/Button";
 import template from "./profileInfoBlock.hbs";
 
-interface IProfileInfoLabel {
+interface IProfileInfoLabelProps {
   value: string;
   class?: string;
 }
 
-interface IProfileInfoButton {
+interface IProfileInfoButtonProps {
   label: string;
-  events? : {
-    click: () => void
-  }
+  events?: {
+    click: () => void;
+  };
 }
 
-interface IProfileInfoBlock {
-  labelUserName: IProfileInfoLabel;
-  labelEmail: IProfileInfoLabel;
-  button: IProfileInfoButton;
+interface IProfileInfoBlockProps {
+  labelUserName: IProfileInfoLabelProps;
+  labelEmail: IProfileInfoLabelProps;
+  button: IProfileInfoButtonProps;
 }
 
-export class ProfileInfoBlock extends Block {
-  constructor(props: IProfileInfoBlock) {
-    super(props);
-  }
-
+export class ProfileInfoBlock extends Block<IProfileInfoBlockProps> {
   init() {
     this.children.labelUserName = new Label({
       value: this.props.labelUserName.value,
@@ -37,7 +33,7 @@ export class ProfileInfoBlock extends Block {
     });
     this.children.btnChangePswd = new Button({
       label: this.props.button.label,
-      events: this.props.button.events
+      events: this.props.button.events,
     });
   }
 

@@ -24,11 +24,7 @@ interface IFieldProps {
   validation_error?: IFieldValidationErrorProps;
 }
 
-export class Field extends Block {
-  constructor(props: IFieldProps) {
-    super(props);
-  }
-
+export class Field extends Block<IFieldProps> {
   init() {
     this.children.input = new Input({
       type: this.props.input.type,

@@ -14,6 +14,7 @@ export const ROUTES = {
 
 
 export function renderDOM(route: keyof typeof ROUTES) {
+    console.log("click");
     const root = document.querySelector('#app');
 
     root.innerHTML = '';

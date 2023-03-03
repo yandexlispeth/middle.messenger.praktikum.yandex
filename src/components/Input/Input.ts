@@ -1,7 +1,7 @@
 import template from "./input.hbs";
 import Block from "../Block";
 
-interface IInput {
+interface IInputProps {
   type: string;
   name?: string;
   placeholder?: string;
@@ -12,11 +12,7 @@ interface IInput {
   };
 }
 
-export class Input extends Block {
-  constructor(props: IInput) {
-    super(props);
-  }
-
+export class Input extends Block<IInputProps, HTMLInputElement> {
   init() {
     console.log("Input inited");
   }

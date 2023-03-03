@@ -1,23 +1,40 @@
 import Block from "../../components/Block";
-import template from './navigation.hbs';
+import Link from "../../components/Link";
+import { renderDOM } from "../../utils/renderDOM";
+import template from "./navigation.hbs";
 
-
-interface INavigationProps {
-    link1:string;
-    link2:string;
-    menu_title1:string;
-    menu_title2:string;
-    events?: {
-        click: () => void;
-    }
+interface ILinkProps {
+  value: string;
+  events?: {
+    click: () => void;
+  };
 }
 
-export class Navigation extends Block {
-    constructor(props:INavigationProps) {
-        super(props);
-    }
+interface INavigationProps {
+  link1: ILinkProps;
+  link2: ILinkProps;
+  events?: {
+    click: () => void;
+  };
+}
 
-    render() {
-        return this.compile(template, this.props);
-    }
+export class Navigation extends Block<INavigationProps> {
+  render() {
+    return this.compile(template, this.props);
+  }
+
+  init() {
+    this.children.link1 = new Link({
+      label: "Авторизация",
+      events: {
+        click: () => renderDOM("authorization"),
+      },
+    });
+    this.children.link2 = new Link({
+      label: "Регистрация",
+      events: {
+        click: () => renderDOM("registration"),
+      },
+    });
+  }
 }

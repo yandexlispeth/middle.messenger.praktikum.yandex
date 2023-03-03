@@ -2,6 +2,7 @@ import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
 import Block from "../../components/Block";
 import template from "./authorization.hbs";
+import { renderDOM, ROUTES } from "../../utils/renderDOM";
 
 export default class AuthorizationPage extends Block {
   init() {
@@ -29,12 +30,17 @@ export default class AuthorizationPage extends Block {
     });
 
     this.children.navigation = new Navigation({
-      link1: "/",
-      link2: "///",
-      menu_title1: "Вход",
-      menu_title2: "Регистрация",
-      events: {
-        click: () => console.log("navigation"),
+      link1: {
+        value: "Вход",
+        events: {
+          click: () => renderDOM("authorization")
+        }
+      },
+      link2: {
+        value: "Регистрация",
+        events: {
+          click: () => renderDOM("registration")
+        }
       },
     });
   }

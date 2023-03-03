@@ -54,10 +54,10 @@ export default class ChatPage extends Block {
                 class: "avatar_small"
             },
             labelChatName: {
-                value: "Андрей",
+                value: "Максим",
             },
             labelChatInfo: {
-                value: "Изображение",
+                value: "Документ",
             },
             labelChatTime: {
                 value: "10:50",
@@ -69,13 +69,43 @@ export default class ChatPage extends Block {
                 class: "avatar_small"
             },
             labelChatName: {
-                value: "Андрей"
+                value: "Женя"
             },
             labelChatInfo: {
                 value: "Изображение"
             },
             labelChatTime: {
-                value: "10:50"
+                value: "Вчера"
+            }
+        });
+
+        this.children.chatMessageItem4 = new ChatMessageItem({
+            avatar: {
+                class: "avatar_small"
+            },
+            labelChatName: {
+                value: "Мамочка"
+            },
+            labelChatInfo: {
+                value: "Видео"
+            },
+            labelChatTime: {
+                value: "11:50"
+            }
+        });
+
+        this.children.chatMessageItem5 = new ChatMessageItem({
+            avatar: {
+                class: "avatar_small"
+            },
+            labelChatName: {
+                value: "Рабочий чат"
+            },
+            labelChatInfo: {
+                value: "Документ"
+            },
+            labelChatTime: {
+                value: "09:50"
             }
         });
 
