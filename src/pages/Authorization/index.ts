@@ -2,7 +2,7 @@ import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
 import Block from "../../components/Block";
 import template from "./authorization.hbs";
-import { renderDOM, ROUTES } from "../../utils/renderDOM";
+import { renderDOM } from "../../utils/renderDOM";
 
 export default class AuthorizationPage extends Block {
   init() {
