@@ -1,0 +1,51 @@
+:root {
+    --avatar-caption-bg-color: #91a3d880;
+    --avatar-caption-text-color: #fff;
+  }
+
+.user-data-avatar__container {
+    border-radius: 50%;
+    margin:0 auto;
+    display:block;
+    text-align:center;
+    position:relative;
+}
+
+.user-data-avatar__container img {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.user-data-avatar__container .image-avatar__caption {
+    opacity:0;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translate(-50%, 0);
+    transition: 0.5s;
+    width:55%;
+    font-size:15px;
+    background-color: var(--avatar-caption-bg-color);
+    padding:10px 5px;
+    color: var(--avatar-caption-text-color);
+}
+
+.user-data-avatar__container:hover .image-avatar__caption {
+    opacity: 1;
+}
+
+.user-data__name {
+    display: inline-block;
+    margin-top:-15px;
+    font-size: 25px;
+}
+
+.user-data__email {
+    position:relative;
+}
+
+
+.button-change__container{
+    margin: 20px;
+}
