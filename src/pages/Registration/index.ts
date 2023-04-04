@@ -56,15 +56,7 @@ export default class RegistrationPage extends Block {
       class: "register-form",
     });
 
-    this.children.navigation = new Navigation({
-      link1: "/",
-      link2: "///",
-      menu_title1: "Вход",
-      menu_title2: "Регистрация",
-      events: {
-        click: () => console.log("navigation"),
-      },
-    });
+    this.children.navigation = new Navigation({});
   }
 
   render() {

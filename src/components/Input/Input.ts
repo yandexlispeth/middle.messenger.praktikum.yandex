@@ -13,10 +13,6 @@ interface IInputProps {
 }
 
 export class Input extends Block<IInputProps, HTMLInputElement> {
-  init() {
-    console.log("Input inited");
-  }
-
   get value() {
     return (this.element as HTMLInputElement).value;
   }

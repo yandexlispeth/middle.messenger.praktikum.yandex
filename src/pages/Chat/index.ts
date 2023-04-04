@@ -3,12 +3,11 @@ import Button from "../../components/Button";
 import ChatMessageItem from "../../blocks/ChatMessageItem";
 import ContextMenu from "../../blocks/ContextMenu";
 import Input from "../../components/Input";
-import Label from "../../components/Label";
 import Message from "../../blocks/Message";
 import Block from "../../components/Block";
-import { renderDOM } from "../../utils/renderDOM";
 import template from "./chat.hbs";
 import Field from "../../blocks/Field";
+import Link from "../../components/Link";
 
 
 export default class ChatPage extends Block {
@@ -20,12 +19,13 @@ export default class ChatPage extends Block {
 
         const text2 = "Класс, спасибо за информацию!";
 
-        this.children.labelProfile = new Label({
-            value: "Профиль > ",
-            class: "label-profile",
-            events: {
-                click: () => renderDOM("user_settings")
-            }
+        this.children.labelProfile = new Link({
+            label: "Профиль > ",
+            to: "/settings",
+            // class: "label-profile",
+            // events: {
+            //     click: () => renderDOM("user_settings")
+            // }
         });
 
         this.children.inputSearch = new Input({

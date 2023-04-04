@@ -2,6 +2,7 @@ import Block from "../../components/Block";
 import Label from "../../components/Label";
 import Button from "../../components/Button";
 import template from "./profileInfoBlock.hbs";
+import Router from "../../utils/router";
 
 interface IProfileInfoLabelProps {
   value: string;
@@ -32,8 +33,7 @@ export class ProfileInfoBlock extends Block<IProfileInfoBlockProps> {
       class: "user-data__email",
     });
     this.children.btnChangePswd = new Button({
-      label: this.props.button.label,
-      events: this.props.button.events,
+      ...this.props.button
     });
   }
 
