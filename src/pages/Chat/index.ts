@@ -8,6 +8,7 @@ import Block from "../../components/Block";
 import template from "./chat.hbs";
 import Field from "../../blocks/Field";
 import Link from "../../components/Link";
+import {Routes} from "../../index";
 
 
 export default class ChatPage extends Block {
@@ -21,7 +22,7 @@ export default class ChatPage extends Block {
 
         this.children.labelProfile = new Link({
             label: "Профиль > ",
-            to: "/settings",
+            to: Routes.Profile,
             // class: "label-profile",
             // events: {
             //     click: () => renderDOM("user_settings")

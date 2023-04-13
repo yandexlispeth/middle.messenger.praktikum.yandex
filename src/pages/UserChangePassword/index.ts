@@ -3,9 +3,13 @@ import Block from "../../components/Block";
 import template from "./user_change_password.hbs";
 import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
 import { renderDOM } from "../../utils/renderDOM";
+import Button from "../../components/Button";
 
 export default class UserChangePasswordPage extends Block {
   init() {
+    this.children.btnBack = new Button({
+      class: "user-settings__btnback"
+    });
     this.children.profileInfoBlock = new ProfileInfoBlock({
       labelUserName: { value: "Алина" },
       labelEmail: { value: "alinamalina@gmail.com" },

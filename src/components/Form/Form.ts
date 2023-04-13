@@ -4,8 +4,9 @@ import template from "./form.hbs";
 import Field from "../../blocks/Field";
 
 interface IFormValidationErrorProps {
-  error_message?: string;
+    error_message?: string;
 }
+
 interface IFormFieldProps {
   input: {
     type: string;
@@ -21,50 +22,51 @@ interface IFormFieldProps {
 }
 
 interface IFormButtonProps {
-  label: string;
-  type?: string;
-  class?: string;
+    label: string;
+    events: {
+        click: (e: Event) => void;
+    }
+    type?: string;
+    class?: string;
 }
 
 interface IFormProps {
-  fields: IFormFieldProps[] | IFormFieldProps;
-  buttons: IFormButtonProps;
-  class?: string;
-  events?: {
-    submit: (event: Event) => void;
-  };
+    fields: IFormFieldProps[];
+    buttons: IFormButtonProps;
+    class?: string;
+    events?: {
+        submit: (event: Event) => void;
+    };
 }
 
 export class Form extends Block<IFormProps, HTMLFormElement> {
- init() {
-    const form_fields: Field[] = [];
-    if (Array.isArray(this.props.fields)) {
-      this.props.fields.forEach((field: IFormFieldProps) => {
-        form_fields.push(new Field(field));
-      });
+    init() {
+        const form_fields: Field[] = [];
+        if (Array.isArray(this.props.fields)) {
+            this.props.fields.forEach((field: IFormFieldProps) => {
+                form_fields.push(new Field(field));
+            });
+        }
+        this.children.fields = form_fields;
+
+        this.children.button = new Button(this.props.buttons);
     }
-    this.children.fields = form_fields;
 
-    this.children.button = new Button(this.props.buttons);
-  }
-
-  render() {
-    return this.compile(template, this.props);
-  }
-
-  dispatchComponentDidMount(): void {
-    this.setProps({ events: { submit: (e: Event) => this.handleSubmit(e) } });
-  }
-
-  handleSubmit(event: Event) {
-    event.preventDefault();
-
-    const formData = new FormData(this.element as HTMLFormElement);
-    let data_object = {};
-
-    for (const [name, value] of formData) {
-      data_object = Object.assign(data_object, { [name]: value });
+    render() {
+        return this.compile(template, this.props);
     }
-    console.log(data_object);
-  }
+
+    // dispatchComponentDidMount(): void {
+    //     this.setProps({events: {submit: (e: Event) => this.handleSubmit(e)}});
+    // }
+
+    getValues():unknown {
+        const formData = new FormData(this.element as HTMLFormElement);
+        const data_object = {};
+
+        for (const [name, value] of formData) {
+            Object.assign(data_object, {[name]: value});
+        }
+       return data_object;
+    }
 }

@@ -1,5 +1,5 @@
 .user-settings__main {
-  display: flex;
+  width:100%;
   align-items: center;
   justify-content: center;
 }
@@ -7,12 +7,13 @@
 .user-settings__grid {
   display: grid;
   padding: 10px 15px;
-  grid-template-columns: 300px 550px 300px;
-  grid-gap: 20px;
+  grid-template-columns: 30px 550px 550px;
+  grid-gap: 15px;
   grid-auto-flow: row;
 }
 
 .user-settings__grid div {
+  width:100%;
   text-align: center;
   padding: 10px 15px;
   font-family: sans-serif;
@@ -28,7 +29,8 @@
   width: 550px;
 }
 
-.user-settings__back {
+.user-settings__btnback {
+  background-image: url('../../../static/arrow_left.png');
   width: 30;
   height: 30;
   cursor: pointer;
