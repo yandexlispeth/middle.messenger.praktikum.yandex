@@ -41,7 +41,7 @@ class Route {
       throw new Error("Root not found");
     }
 
-    root.innerHTML = "";
+    root.textContent = "";
     root.appendChild(this.block.getContent());
     this.block.show();
   }
@@ -91,11 +91,13 @@ class Router {
   }
 
   public go(pathname: string) {
+    // debugger;
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
 
   public back() {
+    console.log("BACK");
     this.history.back();
   }
 

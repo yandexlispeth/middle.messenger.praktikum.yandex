@@ -20,9 +20,10 @@ export interface IUser {
   second_name: string;
   display_name: string;
   login: string;
+  avatar: string;
   email: string;
   phone: string;
-  avatar: string;
+  status:string;
 }
 
 export default class AuthApi extends BaseAPI {

@@ -2,21 +2,23 @@ import Form from "../../components/Form";
 import Block from "../../components/Block";
 import template from "./user_change_password.hbs";
 import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
-import { renderDOM } from "../../utils/renderDOM";
 import Button from "../../components/Button";
+import router from "../../utils/Router";
+import UserController from "../../controllers/UserController";
+import {IUserChangePassword} from "../../api/UserApi";
 
 export default class UserChangePasswordPage extends Block {
   init() {
     this.children.btnBack = new Button({
-      class: "user-settings__btnback"
+      label: "Назад",
+      events: {
+        click: (() => router.back())
+      },
+      // class: "user-settings__btnback"
     });
     this.children.profileInfoBlock = new ProfileInfoBlock({
-      labelUserName: { value: "Алина" },
-      labelEmail: { value: "alinamalina@gmail.com" },
-      button: {
-        label: "Изменить данные",
-        events: { click: () => renderDOM("user_settings") },
-      },
+      userName: this.props.first_name,
+      userEmail: this.props.email,
     });
     this.children.formUserChangePassword = new Form({
       fields: [
@@ -26,7 +28,6 @@ export default class UserChangePasswordPage extends Block {
             name: "oldPassword",
             placeholder: "Старый пароль",
           }
-          
         },
         {
           input: {
@@ -45,11 +46,21 @@ export default class UserChangePasswordPage extends Block {
       ],
       buttons: {
         label: "Сохранить изменения",
+        events: {
+          click: (e) => {
+            e.preventDefault();
+            this.saveForm();
+          }
+        }
       },
       class: "user-change_password__form",
     });
   }
 
+  saveForm() {
+    const data = (this.children.formUserChangePassword as Form).getValues();
+    UserController.change_password(data as IUserChangePassword);
+  }
   render() {
     return this.compile(template, this.props);
   }

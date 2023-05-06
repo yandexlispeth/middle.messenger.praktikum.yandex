@@ -1,12 +1,15 @@
 import {IUser} from "../api/AuthApi";
-import set from "../helpers/set";
+// import set from "../helpers/set";
 import {EventBus} from "./EventBus";
-import isEqual from "./isEqual";
 import Block from "../components/Block";
+import set from "../helpers/set";
+import {IUserChangePassword} from "../api/UserApi";
+import isEqual from "../helpers/isEqual";
 
 interface State {
     user?: {
-        data?: IUser
+        data?: IUser,
+        user_password:IUserChangePassword
         error?: string;
         isLoading?: boolean;
     },
@@ -25,12 +28,13 @@ class Store extends EventBus {
     private state: State = {};
 
     set(path: string, value: unknown) {
+        console.log("SET");
         set(this.state, path, value);
-
-        this.emit(StoreEvent.Updated, this.state);
+        this.emit(StoreEvent.Updated);
     }
 
     getState(): State {
+        // console.log("getState", this.state);
         return this.state;
     }
 }
@@ -38,23 +42,23 @@ class Store extends EventBus {
 const store = new Store();
 
 export const withStore = (mapStateToProps: (state: State) => Record<string, unknown>) => (Component: typeof Block) => {
-    let propsFromState: any;
+    let state: any;
 
-    return class extends Component {
+    return class WithStore extends Component {
         constructor(props: any) {
-            propsFromState = mapStateToProps(store.getState());
+            state = mapStateToProps(store.getState());
 
-            super({...props, ...propsFromState});
+            super({...props, ...state});
 
             store.on(StoreEvent.Updated, () => {
-                const newPropsFromState = mapStateToProps(store.getState());
+                const newState = mapStateToProps(store.getState());
 
-                if (isEqual(propsFromState, newPropsFromState)) {
-                    return;
+                if (!isEqual(state, newState)) {
+                    this.setProps({
+                        ...newState
+                    })
                 }
-                this.setProps({
-                    ...newPropsFromState
-                })
+                state = newState;
             });
         }
     }

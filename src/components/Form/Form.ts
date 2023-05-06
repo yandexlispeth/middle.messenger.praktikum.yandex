@@ -56,10 +56,6 @@ export class Form extends Block<IFormProps, HTMLFormElement> {
         return this.compile(template, this.props);
     }
 
-    // dispatchComponentDidMount(): void {
-    //     this.setProps({events: {submit: (e: Event) => this.handleSubmit(e)}});
-    // }
-
     getValues():unknown {
         const formData = new FormData(this.element as HTMLFormElement);
         const data_object = {};

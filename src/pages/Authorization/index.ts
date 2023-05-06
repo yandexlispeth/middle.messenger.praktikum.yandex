@@ -3,7 +3,7 @@ import Navigation from "../../blocks/Navigation";
 import Block from "../../components/Block";
 import template from "./authorization.hbs";
 import AuthController from "../../controllers/AuthController";
-import router from "../../utils/router";
+import router from "../../utils/Router";
 import {Routes} from "../../index";
 import {ISignInData} from "../../api/AuthApi";
 

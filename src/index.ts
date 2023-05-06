@@ -4,16 +4,16 @@ import ChatPage from './pages/Chat';
 import RegistrationPage from './pages/Registration';
 import UserChangePasswordPage from './pages/UserChangePassword';
 
-import Router from './utils/router';
+import Router from './utils/Router';
 import AuthController from "./controllers/AuthController";
 import {UserSettingsPage} from "./pages/UserSettings";
 
 export enum Routes {
-  Index = '/',
-  Register = '/sign-up',
-  Profile = '/profile',
-  Messenger = '/messenger',
-  Password = '/password'
+    Index = '/',
+    Register = '/sign-up',
+    Profile = '/profile',
+    Messenger = '/messenger',
+    Password = '/password'
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -41,26 +41,16 @@ window.addEventListener('DOMContentLoaded', async () => {
             break;
     }
 
-
-    // router.go('/messenger');
-    //   .use('/register', RegistrationPage)
-    //   .use('/profile', ProfilePage);
-
-    // eslint-disable-next-line no-debugger
-    // debugger;
     try {
         await AuthController.fetchUser();
-
         Router.start();
-
-        if (is_protected) {
-            Router.go(Routes.Messenger)
+        if (!is_protected) {
+            Router.go(Routes.Profile);
         }
     } catch (e) {
-        console.log("E", e);
         Router.start();
-        // if (is_protected) {
+        if (is_protected) {
             Router.go(Routes.Index);
-        // }
+        }
     }
 })

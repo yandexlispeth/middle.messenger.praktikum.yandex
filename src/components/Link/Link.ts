@@ -4,7 +4,7 @@ import template from "./link.hbs";
 
 interface ILinkProps extends WithRouterProps {
   label: string;
-  to:string;
+  to?:string;
   class?: string;
   events?: {
     click: (e:MouseEvent) => void;
@@ -16,15 +16,19 @@ export class Link extends Block{
     super({
      ...props,
       events: {
-        click: (e:MouseEvent) => { this.navigate(e);
-        },
+        click: () => {
+            // e.preventDefault();
+            this.navigate()
+        }
       }
     });
   }
 
-  navigate(e:MouseEvent) {
-      this.props.router.go(this.props.to);
-      e.preventDefault();
+  navigate() {
+      if(this.props.router.to) {
+          this.props.router.go(this.props.to);
+      }
+      console.log(this.props);
   }
 
   

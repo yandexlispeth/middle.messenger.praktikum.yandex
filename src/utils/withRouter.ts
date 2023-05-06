@@ -1,5 +1,5 @@
 import Block from "../components/Block";
-import Router from "./router";
+import Router from "./Router";
 
 export interface WithRouterProps {
     router: typeof Router;

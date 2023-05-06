@@ -10,11 +10,17 @@ function isEqual(a: Record<string, any>, b: Record<string, any>): boolean {
         if (!b.hasOwnProperty(key)) {
             return false;
         }
-        if (value === void 0 && b[key] === void 0) {
+
+        const value_b = b[key];
+
+        if (value === void 0 && value_b === void 0) {
             return true;
         }
 
-        const value_b = b[key];
+        if(value === null && value_b === null) {
+            return true;
+        }
+
 
         if(value.length !== value_b.length) {
             return false;

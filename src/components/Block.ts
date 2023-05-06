@@ -1,6 +1,6 @@
-import { EventBus } from "../utils/EventBus";
-import { nanoid } from "nanoid";
-import { TemplateDelegate } from "handlebars";
+import {EventBus} from "../utils/EventBus";
+import {nanoid} from "nanoid";
+import {TemplateDelegate} from "handlebars";
 
 export default class Block<
   P extends Record<string, any> = any,
@@ -43,6 +43,7 @@ export default class Block<
   }
 
   _getChildrenAndProps(childrenAndProps: P) {
+    console.log("getChil");
     const props: P = {} as P;
     const children: Record<string, Block | Block[]> = {};
 
@@ -160,6 +161,7 @@ export default class Block<
   }
 
   _componentDidUpdate(oldProps: P, newProps: P) {
+    console.log("_componentDidUpdate");
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -173,7 +175,7 @@ export default class Block<
     if (!nextProps) {
       return;
     }
-
+    console.log("STOP");
     Object.assign(this.props, nextProps);
   };
 
@@ -182,6 +184,7 @@ export default class Block<
   }
 
   _render() {
+    console.log('_render');
     const fragment = this.render();
 
     const newElement = fragment.firstElementChild as E;
@@ -228,7 +231,7 @@ export default class Block<
   }
 
   show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "grid";
   }
 
   hide() {

@@ -3,7 +3,7 @@ import template from "./label.hbs";
 
 
 interface ILabelProps {
-    value: string,
+    value?: string,
     class?: string,
     events?: {
         click: () => void
