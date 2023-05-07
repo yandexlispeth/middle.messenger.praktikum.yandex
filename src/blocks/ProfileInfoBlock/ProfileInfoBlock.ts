@@ -1,40 +1,43 @@
 import Block from "../../components/Block";
 import Label from "../../components/Label";
-import Button from "../../components/Button";
 import template from "./profileInfoBlock.hbs";
-import Router from "../../utils/router";
 
-interface IProfileInfoLabelProps {
-  value: string;
-  class?: string;
-}
+// interface IProfileInfoLabelProps {
+//   value: string;
+//   class?: string;
+// }
 
-interface IProfileInfoButtonProps {
-  label: string;
-  events?: {
-    click: () => void;
-  };
-}
 
 interface IProfileInfoBlockProps {
-  labelUserName: IProfileInfoLabelProps;
-  labelEmail: IProfileInfoLabelProps;
-  button: IProfileInfoButtonProps;
+  userName: string;
+  userEmail: string;
 }
 
 export class ProfileInfoBlock extends Block<IProfileInfoBlockProps> {
   init() {
-    this.children.labelUserName = new Label({
-      value: this.props.labelUserName.value,
+    this.children.labelName = new Label({
+      value: this.props.userName,
       class: "user-data__name",
     });
     this.children.labelEmail = new Label({
-      value: this.props.labelEmail.value,
+      value: this.props.userEmail,
       class: "user-data__email",
     });
-    this.children.btnChangePswd = new Button({
-      ...this.props.button
-    });
+  }
+
+  componentDidUpdate(oldProps: IProfileInfoBlockProps, newProps: IProfileInfoBlockProps): boolean {
+    if (oldProps.userName !== newProps.userName) {
+      (this.children.labelName as Block).setProps({
+        value: newProps.userName,
+      });
+    }
+    if (oldProps.userEmail !== newProps.userEmail) {
+      (this.children.labelEmail as Block).setProps({
+        value: newProps.userEmail,
+      });
+    }
+
+    return true;
   }
 
   render() {

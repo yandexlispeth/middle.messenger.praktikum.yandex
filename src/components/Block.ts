@@ -95,6 +95,16 @@ export default class Block<
 
   _componentDidMount() {
     this.componentDidMount();
+
+    Object.values(this.children).forEach((child: Block) => {
+      if(Array.isArray(child)) {
+        child.map((c) => {
+          c.dispatchComponentDidMount();
+        })
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   protected compile(template: TemplateDelegate, context: any) {
@@ -175,7 +185,6 @@ export default class Block<
     if (!nextProps) {
       return;
     }
-    console.log("STOP");
     Object.assign(this.props, nextProps);
   };
 
@@ -216,9 +225,11 @@ export default class Block<
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value) {
+        const oldProps = {...target};
+
         if (target[prop as keyof P] !== value) {
           target[prop as keyof P] = value;
-          self.eventBus().emit(Block.EVENTS.FLOW_CDU);
+          self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         }
         return true;
       },

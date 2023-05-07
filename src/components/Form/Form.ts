@@ -65,4 +65,8 @@ export class Form extends Block<IFormProps, HTMLFormElement> {
         }
        return data_object;
     }
+
+    reset() {
+        (this.element as HTMLFormElement).reset();
+    }
 }

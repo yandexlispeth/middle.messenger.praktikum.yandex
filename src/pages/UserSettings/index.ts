@@ -102,12 +102,26 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
         });
     }
 
+    componentDidUpdate(oldProps: IUserSettingsPageBase, newProps: IUserSettingsPageBase) {
+        if (oldProps.first_name !== newProps.first_name) {
+            (this.children.profileInfoBlock as Block).setProps({
+                userName: newProps.first_name
+            });
+        }
+        if (oldProps.email !== newProps.email) {
+            (this.children.profileInfoBlock as Block).setProps({
+                userEmail: newProps.email
+            });
+        }
+        return true;
+    }
+
     saveForm() {
-        console.log('save');
         const data = (this.children.formUserSettings as Form).getValues();
         UserController.change_profile(data as IUser).then(() => {
             this.dispatchComponentDidMount();
         });
+        (this.children.formUserSettings as Form).reset();
     }
 
     render() {
