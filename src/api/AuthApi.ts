@@ -36,7 +36,6 @@ export default class AuthApi extends BaseAPI {
   }
 
   signin(data: ISignInData) {
-    console.log("DATA", data);
     return this.http.post("/signin", data);
   }
 

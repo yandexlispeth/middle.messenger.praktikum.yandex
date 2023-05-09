@@ -1,6 +1,7 @@
 import Block from "../../components/Block";
 import Label from "../../components/Label";
 import template from "./profileInfoBlock.hbs";
+import Avatar from "../../components/Avatar";
 
 // interface IProfileInfoLabelProps {
 //   value: string;
@@ -9,12 +10,16 @@ import template from "./profileInfoBlock.hbs";
 
 
 interface IProfileInfoBlockProps {
-  userName: string;
-  userEmail: string;
+  avatar: string | undefined;
+  userName: string | undefined;
+  userEmail: string | undefined;
 }
 
 export class ProfileInfoBlock extends Block<IProfileInfoBlockProps> {
   init() {
+    this.children.Avatar = new Avatar({
+      src: this.props.avatar
+    })
     this.children.labelName = new Label({
       value: this.props.userName,
       class: "user-data__name",

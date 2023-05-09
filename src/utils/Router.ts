@@ -91,13 +91,11 @@ class Router {
   }
 
   public go(pathname: string) {
-    // debugger;
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
 
   public back() {
-    console.log("BACK");
     this.history.back();
   }
 

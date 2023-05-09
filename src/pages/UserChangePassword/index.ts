@@ -2,23 +2,24 @@ import Form from "../../components/Form";
 import Block from "../../components/Block";
 import template from "./user_change_password.hbs";
 import ProfileInfoBlock from "../../blocks/ProfileInfoBlock";
-import Button from "../../components/Button";
-import router from "../../utils/Router";
 import UserController from "../../controllers/UserController";
 import {IUserChangePassword} from "../../api/UserApi";
+import Link from "../../components/Link";
+import store from "../../utils/Store";
+import Router from "../../utils/Router";
 
 export default class UserChangePasswordPage extends Block {
   init() {
-    this.children.btnBack = new Button({
+    this.children.btnBack = new Link({
       label: "Назад",
       events: {
-        click: (() => router.back())
+        click: () => Router.back(),
       },
-      // class: "user-settings__btnback"
     });
     this.children.profileInfoBlock = new ProfileInfoBlock({
-      userName: this.props.first_name,
-      userEmail: this.props.email,
+      avatar: store.getState().user?.data?.avatar,
+      userName: store.getState().user?.data?.first_name,
+      userEmail: store.getState().user?.data?.email,
     });
     this.children.formUserChangePassword = new Form({
       fields: [
@@ -44,7 +45,7 @@ export default class UserChangePasswordPage extends Block {
           }
         },
       ],
-      buttons: {
+      button: {
         label: "Сохранить изменения",
         events: {
           click: (e) => {
@@ -59,7 +60,10 @@ export default class UserChangePasswordPage extends Block {
 
   saveForm() {
     const data = (this.children.formUserChangePassword as Form).getValues();
-    UserController.change_password(data as IUserChangePassword);
+    UserController.change_password(data as IUserChangePassword).then(() => {
+      this.dispatchComponentDidMount();
+      (this.children.formUserChangePassword as Form).reset();
+    })
   }
   render() {
     return this.compile(template, this.props);

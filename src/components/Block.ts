@@ -43,7 +43,6 @@ export default class Block<
   }
 
   _getChildrenAndProps(childrenAndProps: P) {
-    console.log("getChil");
     const props: P = {} as P;
     const children: Record<string, Block | Block[]> = {};
 
@@ -171,7 +170,6 @@ export default class Block<
   }
 
   _componentDidUpdate(oldProps: P, newProps: P) {
-    console.log("_componentDidUpdate");
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -193,7 +191,6 @@ export default class Block<
   }
 
   _render() {
-    console.log('_render');
     const fragment = this.render();
 
     const newElement = fragment.firstElementChild as E;

@@ -28,7 +28,6 @@ function set(
   path: string,
   value: unknown
 ): Indexed | unknown {
-  // debugger;
   if (typeof path !== "string") {
     throw new Error("path must be string");
   }

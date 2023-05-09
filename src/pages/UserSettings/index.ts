@@ -4,31 +4,67 @@ import Block from "../../components/Block";
 import template from "./user_settings.hbs";
 import Button from "../../components/Button";
 import Router from "../../utils/Router";
-import router from "../../utils/Router";
 import {Routes} from "../..";
-import {withStore} from "../../utils/Store";
+import store, {withStore} from "../../utils/Store";
 import AuthController from "../../controllers/AuthController";
 import UserController from "../../controllers/UserController";
 import {IUser} from "../../api/AuthApi";
 import Link from "../../components/Link";
 
 interface IUserSettingsPageBase {
-    first_name:string;
-    email:string;
+    first_name: string;
+    email: string;
 }
+
 class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
     init() {
         this.children.btnBack = new Link({
             label: "Назад",
             events: {
-                click: (() => router.back())
+                click: () => Router.back(),
             },
             // class: "user-settings__btnback"
         });
         this.children.profileInfoBlock = new ProfileInfoBlock({
+            avatar: `https://ya-praktikum.tech/api/v2/resources/${store.getState().user?.data?.avatar}`,
             userName: this.props.first_name,
             userEmail: this.props.email,
         });
+
+        // this.children.popupAvatar = new Dialog({style: "display: none"});
+
+        // this.children.linkPopupAvatar = new Link({
+        //     label: 'Изменить аватар',
+        //     events: {
+        //         click: () => {
+        //             (this.children.popupAvatar as Block).hide();
+        //         }
+        //     }
+        // });
+
+
+        this.children.formAvatar = new Form({
+            id: 'formAvatar',
+            fields: [{
+                input: {
+                    type: 'file',
+                    id: 'avatar',
+                    name: 'avatar'
+                }
+            }],
+            button: {
+                label: 'Отправить аватар',
+                type: 'submit'
+            },
+            events: {
+                submit: ((e) => {
+                    e.preventDefault();
+                    const formAvatar = document.getElementById('formAvatar');
+                    const form = new FormData(formAvatar as HTMLFormElement);
+                    UserController.update_avatar(form);
+                })
+            }
+        })
 
         this.children.btnChangePassword = new Button({
             label: "Изменить пароль",
@@ -89,7 +125,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
                     },
                 },
             ],
-            buttons: {
+            button: {
                 label: "Сохранить изменения",
                 events: {
                     click: (e) => {
@@ -101,6 +137,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
             class: "user_settings_form",
         });
     }
+
 
     componentDidUpdate(oldProps: IUserSettingsPageBase, newProps: IUserSettingsPageBase) {
         if (oldProps.first_name !== newProps.first_name) {
@@ -120,8 +157,8 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
         const data = (this.children.formUserSettings as Form).getValues();
         UserController.change_profile(data as IUser).then(() => {
             this.dispatchComponentDidMount();
+            (this.children.formUserSettings as Form).reset();
         });
-        (this.children.formUserSettings as Form).reset();
     }
 
     render() {

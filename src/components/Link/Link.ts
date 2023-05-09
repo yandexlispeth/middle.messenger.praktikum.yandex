@@ -1,6 +1,7 @@
 import { WithRouterProps } from "../../utils/withRouter";
 import Block from "../Block";
 import template from "./link.hbs";
+import Router from "../../utils/Router";
 
 interface ILinkProps extends WithRouterProps {
   label: string;
@@ -14,21 +15,22 @@ interface ILinkProps extends WithRouterProps {
 export class Link extends Block{
   constructor(props: ILinkProps) {
     super({
-     ...props,
       events: {
-        click: () => {
-            // e.preventDefault();
-            this.navigate()
+        click: (e:Event) => {
+            this.navigate(e)
         }
-      }
+      },
+        ...props
     });
   }
 
-  navigate() {
-      if(this.props.router.to) {
-          this.props.router.go(this.props.to);
+  navigate(e:Event) {
+      e.preventDefault();
+      if(this.props.to) {
+          Router.go(this.props.to);
+      } else {
+          this.props.events.click();
       }
-      console.log(this.props);
   }
 
   

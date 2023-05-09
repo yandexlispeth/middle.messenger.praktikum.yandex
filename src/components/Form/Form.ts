@@ -8,22 +8,23 @@ interface IFormValidationErrorProps {
 }
 
 interface IFormFieldProps {
-  input: {
-    type: string;
-    name?: string;
-    placeholder?: string;
-    className?: string;
-    events?: {
-      focus?: () => void;
-      blur?: () => void;
+    input: {
+        type: string;
+        name?: string;
+        id?: string;
+        placeholder?: string;
+        className?: string;
+        events?: {
+            focus?: () => void;
+            blur?: () => void;
+        };
+        validation_error?: IFormValidationErrorProps;
     };
-    validation_error?: IFormValidationErrorProps;
-  };
 }
 
 interface IFormButtonProps {
     label: string;
-    events: {
+    events?: {
         click: (e: Event) => void;
     }
     type?: string;
@@ -32,8 +33,9 @@ interface IFormButtonProps {
 
 interface IFormProps {
     fields: IFormFieldProps[];
-    buttons: IFormButtonProps;
+    button?: IFormButtonProps;
     class?: string;
+    id?: string;
     events?: {
         submit: (event: Event) => void;
     };
@@ -49,21 +51,23 @@ export class Form extends Block<IFormProps, HTMLFormElement> {
         }
         this.children.fields = form_fields;
 
-        this.children.button = new Button(this.props.buttons);
+        if(this.props.button) {
+            this.children.button = new Button(this.props.button);
+        }
     }
 
     render() {
         return this.compile(template, this.props);
     }
 
-    getValues():unknown {
+    getValues(): unknown {
         const formData = new FormData(this.element as HTMLFormElement);
         const data_object = {};
 
         for (const [name, value] of formData) {
             Object.assign(data_object, {[name]: value});
         }
-       return data_object;
+        return data_object;
     }
 
     reset() {

@@ -1,5 +1,4 @@
 import {IUser} from "../api/AuthApi";
-// import set from "../helpers/set";
 import {EventBus} from "./EventBus";
 import Block from "../components/Block";
 import set from "../helpers/set";
@@ -28,7 +27,6 @@ class Store extends EventBus {
     private state: State = {};
 
     set(path: string, value: unknown) {
-        console.log("SET");
         set(this.state, path, value);
         this.emit(StoreEvent.Updated);
     }

@@ -27,7 +27,7 @@ export default class AuthorizationPage extends Block {
                     },
                 },
             ],
-            buttons: {
+            button: {
                 label: "Авторизоваться",
                 events: {
                     click: (e) => {
