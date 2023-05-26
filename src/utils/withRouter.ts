@@ -2,11 +2,10 @@ import Block from "../components/Block";
 import Router from "./Router";
 
 export interface WithRouterProps {
-    router: typeof Router;
+    router?: typeof Router;
   }
   
   export function withRouter(Component: typeof Block<any>) {
-    // type Props = typeof Component extends typeof Block<infer P> ? P : any;
     return class WithRouter extends Component {
       public static componentName = Component.name;
   

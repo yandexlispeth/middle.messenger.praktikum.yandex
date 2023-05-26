@@ -1,6 +1,6 @@
 import Block from './components/Block';
 import AuthorizationPage from './pages/Authorization';
-import ChatPage from './pages/Chat';
+import {ChatPage} from './pages/Chat';
 import RegistrationPage from './pages/Registration';
 import UserChangePasswordPage from './pages/UserChangePassword';
 
@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         await AuthController.fetchUser();
         Router.start();
         if (!is_protected) {
-            Router.go(Routes.Profile);
+            Router.go(Routes.Messenger);
         }
     } catch (e) {
         Router.start();

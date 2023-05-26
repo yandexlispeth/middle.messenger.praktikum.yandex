@@ -1,18 +1,17 @@
-import { WithRouterProps } from "../../utils/withRouter";
 import Block from "../Block";
 import template from "./link.hbs";
 import Router from "../../utils/Router";
 
-interface ILinkProps extends WithRouterProps {
+interface ILinkProps {
   label: string;
   to?:string;
   class?: string;
   events?: {
-    click: (e:MouseEvent) => void;
+    click: (e:Event) => void;
   };
 }
 
-export class Link extends Block{
+export class Link extends Block<ILinkProps>{
   constructor(props: ILinkProps) {
     super({
       events: {
@@ -29,7 +28,7 @@ export class Link extends Block{
       if(this.props.to) {
           Router.go(this.props.to);
       } else {
-          this.props.events.click();
+          this.props.events?.click(e);
       }
   }
 

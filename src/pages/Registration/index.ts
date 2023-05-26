@@ -52,7 +52,7 @@ export default class RegistrationPage extends Block {
                     },
                 },
             ],
-            buttons: {
+            button: {
                 label: "Зарегистрироваться",
                 events: {
                     click: (e) => {

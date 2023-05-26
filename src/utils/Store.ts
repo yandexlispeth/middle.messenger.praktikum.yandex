@@ -4,15 +4,22 @@ import Block from "../components/Block";
 import set from "../helpers/set";
 import {IUserChangePassword} from "../api/UserApi";
 import isEqual from "../helpers/isEqual";
+import {IChatInfo} from "../api/ChatApi";
 
-interface State {
+export interface State {
     user?: {
         data?: IUser,
         user_password:IUserChangePassword
         error?: string;
         isLoading?: boolean;
     },
-    chats?: any[]
+    chats?: IChatInfo[],
+    selectedChat?:number,
+    modals?: {
+        chat_settings?: boolean,
+        chat_add?: boolean,
+        chat_delete?: boolean
+    }
 }
 
 enum StoreEvent {
@@ -24,7 +31,13 @@ enum StoreEvent {
 // }
 
 class Store extends EventBus {
-    private state: State = {};
+    private state: State = {
+        modals: {
+            chat_settings: false,
+            chat_add: false,
+            chat_delete: false
+        }
+    };
 
     set(path: string, value: unknown) {
         set(this.state, path, value);
@@ -32,7 +45,6 @@ class Store extends EventBus {
     }
 
     getState(): State {
-        // console.log("getState", this.state);
         return this.state;
     }
 }
@@ -40,11 +52,10 @@ class Store extends EventBus {
 const store = new Store();
 
 export const withStore = (mapStateToProps: (state: State) => Record<string, unknown>) => (Component: typeof Block) => {
-    let state: any;
-
+    
     return class WithStore extends Component {
         constructor(props: any) {
-            state = mapStateToProps(store.getState());
+            let state = mapStateToProps(store.getState());
 
             super({...props, ...state});
 

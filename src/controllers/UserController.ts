@@ -17,7 +17,6 @@ class UserController {
             store.set("user.data", new_profile);
             alert('Данные успешно изменены');
         } catch (e) {
-            alert('Не получилось :(')
             console.log("Ошибка", e);
         }
     }

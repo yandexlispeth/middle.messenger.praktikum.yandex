@@ -21,12 +21,16 @@ function isEqual(a: Record<string, any>, b: Record<string, any>): boolean {
             return true;
         }
 
+        if(value === undefined || value_b === undefined) {
+            continue;
+        }
+
 
         if(value.length !== value_b.length) {
             return false;
         }
 
-        if (typeof value === "object" && typeof value_b === "object") {
+        if ((value.toString()) === "[object Object]" && (value_b.toString()) === "[object Object]") {
             return isEqual(value, value_b);
         }
         if (value instanceof Array && value_b instanceof Array) {
