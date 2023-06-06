@@ -14,9 +14,13 @@ interface IInputProps {
 }
 
 export class Input extends Block<IInputProps, HTMLInputElement> {
-  get value() {
+  setValue(value:string) {
+    return (this.element as HTMLInputElement).value = value;
+  }
+  getValue() {
     return (this.element as HTMLInputElement).value;
   }
+
 
   render() {
     return this.compile(template, this.props);

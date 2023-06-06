@@ -1,7 +1,6 @@
 import UserApi, {IUserChangePassword} from "../api/UserApi";
 import {IUser} from "../api/AuthApi";
 import store from "../utils/Store";
-import Store from "../utils/Store";
 
 
 class UserController {
@@ -35,10 +34,18 @@ class UserController {
         try {
             await this.api.update_avatar(file)
                 .then((response) => {
-                    Store.set('user.data', response);
+                    store.set('user.data.avatar', response);
                 });
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    async search_user(login:string) {
+        try {
+            return await this.api.search_user(login).then((response) => response);
+        } catch (e) {
+            console.log("Error", e);
         }
     }
 }

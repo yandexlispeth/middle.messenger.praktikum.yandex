@@ -3,28 +3,28 @@ import Link from "../Link";
 import Block from "../Block";
 
 interface IChatSettingsPopupProps {
-    onAddClick?: () => void;
-    onDeleteClick?: () => void;
+  onDeleteClick?: () => void;
+  onAddUser?: () => void;
 }
 
 export class ChatSettingsPopup extends Block<IChatSettingsPopupProps> {
   init() {
-    this.children.addChatLink = new Link({
-      label: "Новый чат",
-      events: {
-        click: () => this.props.onAddClick?.()
-      },
-    });
-
     this.children.deleteChatLink = new Link({
       label: "Удалить чат",
       events: {
         click: () => this.props.onDeleteClick?.(),
       },
     });
+
+    this.children.addUser = new Link({
+      label: "Добавить пользователя",
+      events: {
+        click: () => this.props.onAddUser?.(),
+      },
+    });
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, this.props);
   }
 }

@@ -1,9 +1,8 @@
 import Block from "../../components/Block";
 import Avatar from "../../components/Avatar";
 import Label from "../../components/Label";
-import template from "./chat.hbs";
-import { IChatInfo } from "../../api/ChatApi";
-import { State, withStore } from "../../utils/Store";
+import template from "./chatIem.hbs";
+import { withStore } from "../../utils/Store";
 
 export interface IChatProps {
   id: number;
@@ -15,7 +14,7 @@ export interface IChatProps {
   }
 }
 
-export class ChatBase extends Block<IChatProps> {
+export class ChatItemBase extends Block<IChatProps> {
 
   init() {
     this.children.bigAvatar = new Avatar({
@@ -58,4 +57,4 @@ export class ChatBase extends Block<IChatProps> {
 export const withSelectedChat = withStore(state => { 
   return {selectedChat: state.selectedChat} || undefined});
 
-export const Chat = withSelectedChat(ChatBase as typeof Block);
+export const ChatItem = withSelectedChat(ChatItemBase as typeof Block);

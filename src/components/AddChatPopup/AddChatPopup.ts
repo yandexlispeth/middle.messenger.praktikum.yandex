@@ -3,6 +3,7 @@ import Input from "../Input";
 import Button from "../Button";
 import ChatController from "../../controllers/ChatsController";
 import template  from "./addChatPopup.hbs";
+import store from "../../utils/Store";
 
 
 export class AddChatPopup extends Popup {
@@ -28,9 +29,11 @@ export class AddChatPopup extends Popup {
         })
     }
 
-    createChat() {
-        (this.element as HTMLElement).remove()
-        ChatController.create((this.children.inputChatTitle  as Input).value);
+    private createChat() {
+        ChatController.create((this.children.inputChatTitle  as Input).getValue());
+        (this.children.inputChatTitle as Input).setValue('')
+        store.set('modals.chat_add', false);
+        
     }
 
     render() {

@@ -150,10 +150,8 @@ export default class Block<
 
     return temp.content;
   }
-
-  protected componentDidMount() {
-    return true;
-  }
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+  protected componentDidMount() {}
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -175,7 +173,7 @@ export default class Block<
     }
   }
 
-  componentDidUpdate(oldProps: P, newProps: P) {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 

@@ -1,5 +1,6 @@
 import ChatApi from "../api/ChatApi";
 import store from "../utils/Store";
+import MessagesController from "./MessagesController";
 
 class ChatsController {
   private api: ChatApi;
@@ -9,32 +10,38 @@ class ChatsController {
   }
 
   async create(title: string) {
-    await this.api.create(title);
+    await this.api.create(title).then((res:any) => store.set("selectedChat", res.id));
     this.fetchChats();
   }
 
   async fetchChats() {
     const chats = await this.api.read();
-    try {
-      store.set("chats", chats);
-    } catch (e) {
-      console.log(e);
-    }
+    chats.map(async (chat) => {
+      const token = await this.getToken(chat.id);
+
+      await MessagesController.connect(chat.id, token);
+    });
+
+    store.set("chats", chats);
   }
 
   async delete(id: number) {
     await this.api.delete(id);
     await this.fetchChats();
   }
+
   getToken(id: number) {
     return this.api.getToken(id);
   }
 
   selectChat(id: number) {
-    console.log("SelectChat", id);
     store.set("selectedChat", id);
-    console.log(store.getState());
   }
 }
 
-export default new ChatsController();
+const controller = new ChatsController();
+
+// @ts-ignore
+window.chatsController = controller;
+
+export default controller;

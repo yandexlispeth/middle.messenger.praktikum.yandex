@@ -3,11 +3,6 @@ import Label from "../../components/Label";
 import template from "./profileInfoBlock.hbs";
 import Avatar from "../../components/Avatar";
 
-// interface IProfileInfoLabelProps {
-//   value: string;
-//   class?: string;
-// }
-
 
 interface IProfileInfoBlockProps {
   avatar: string | undefined;
@@ -39,6 +34,12 @@ export class ProfileInfoBlock extends Block<IProfileInfoBlockProps> {
     if (oldProps.userEmail !== newProps.userEmail) {
       (this.children.labelEmail as Block).setProps({
         value: newProps.userEmail,
+      });
+    }
+
+    if(oldProps.avatar !== newProps.avatar) {
+      (this.children.Avatar as Block).setProps({
+        src: newProps.avatar,
       });
     }
 

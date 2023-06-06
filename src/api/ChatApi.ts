@@ -36,7 +36,7 @@ export default class ChatApi extends BaseAPI {
     }
 
     async getToken(id:number): Promise<string> {
-        const response = await this.http.post<{token:string}>(`/token/${id}`);
+        const response = await this.http.post<{token:string}>(`/token/${id}/`);
         return response.token;
     }
 

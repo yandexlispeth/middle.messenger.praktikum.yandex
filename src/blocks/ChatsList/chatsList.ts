@@ -1,8 +1,8 @@
 import template from "./chatsList.hbs";
 import Block from "../../components/Block";
 import { IChatInfo } from "../../api/ChatApi";
-import Chat from "../Chat";
 import ChatsController from "../../controllers/ChatsController";
+import ChatItem from "../ChatItem";
 
 interface IChatsListProps {
   chats?: IChatInfo[];
@@ -10,7 +10,7 @@ interface IChatsListProps {
   isLoaded?: boolean;
 }
 
-export default class ChatsList extends Block<IChatsListProps> {
+export class ChatsList extends Block<IChatsListProps> {
   init() {
     // this.children.chats = this.createChats(this.props);
   }
@@ -28,7 +28,7 @@ export default class ChatsList extends Block<IChatsListProps> {
 
   private createChats(chats: IChatInfo[]) {
     return chats.map((data: IChatInfo) => {
-      return new Chat({
+      return new ChatItem({
         ...data,
         events: {
           click: () => {

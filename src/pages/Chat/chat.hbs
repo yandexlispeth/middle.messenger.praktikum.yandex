@@ -1,38 +1,46 @@
 <div class="chats-container__grid">
+    {{#if isChatAddPopupShown}}
+    {{{addChatPopup}}}
+    {{/if}}
     <div class="chats__grid">
-        <div class="chat-search">
+        <div class="chat-profile__label">
             {{{labelProfile}}}
-            <div class="input-search__field">
-                {{{inputSearch}}}
-            </div>
+            <br><br>
+            
             <hr>
+            
         </div>
-
+        <div class="chat-adduser__label">{{{labelCreateChat}}}</div>
+        <hr>
 
         <div class="chats-list__container">
             {{{chatsList}}}
         </div>
     </div>
 
+
+    {{#if isSelectedChat}}
     <div class="messages-grid">
         <div class="companion-info__wrapper">
             {{{smallAvatar}}}
             <div class="profile-info__name messages">
-                <span>Любимый &#10084; </span>
+                <span>{{{chatTitle}}}</span>
             </div>
-            {{{contextMenu}}}
-            {{#if isChatSettingsPopupShown}}
-                {{{chatMenu}}}
-            {{/if}}
-            {{#if isChatAddPopupShown}}
-                {{{addChatPopup}}}
-            {{/if}}
-            {{#if isChatDeletePopupShown}}
+            <div>
+                {{{contextMenu}}}
+                {{#if isChatSettingsPopupShown}}
+                {{{chatSettingsMenu}}}
+                {{/if}}
+                {{#if isChatDeletePopupShown}}
                 {{{deleteChatPopup}}}
-            {{/if}}
+                {{/if}}
+                {{#if isUserAddPopupShown}}
+                {{{addUserPopup}}}
+                {{/if}}
+            </div>
         </div>
         <hr>
-        <div class="messages-date">Сегодня</div>
+        <div class="messages-date">{{{chatDate}}}</div>
 
         <div class="messages__container">
             {{{messageLeft}}}
@@ -40,17 +48,12 @@
         </div>
 
         <div class="footer">
-            <hr>
             <div class="messages-field__container">
-
-                <p><a href="/"><img class="messages-clip__icon" src="clip.png" width="32px" height="32px"></img></a>
-                </p>
-                <div class="messages-field__input">{{{messagesField}}}</div>
-                <div class="messages-field__button">
-                    {{{sendButton}}}
-                </div>
-
+                {{{messenger}}}
             </div>
         </div>
     </div>
+    {{else}}
+    <div class="chat-stub">Please select a chat..</div>
+    {{/if}}
 </div>
