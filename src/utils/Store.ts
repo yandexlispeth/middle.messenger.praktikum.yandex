@@ -15,7 +15,7 @@ export interface State {
     isLoading?: boolean;
   };
   chats?: IChatInfo[];
-  selectedChat?: IChatInfo;
+  selectedChat?: number;
   modals?: {
     chat_settings?: boolean;
     chat_add?: boolean;
@@ -23,15 +23,12 @@ export interface State {
     chat_delete?: boolean;
   };
   messages?: Record<number, Message[]>;
+  foundUsers?: IUser[]
 }
 
 enum StoreEvent {
   Updated = "updated",
 }
-
-// interface StoreData {
-//   currentUser?: IUser;
-// }
 
 class Store extends EventBus {
   private state: State = {
