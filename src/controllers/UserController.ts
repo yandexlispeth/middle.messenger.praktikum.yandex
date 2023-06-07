@@ -32,7 +32,7 @@ class UserController {
   async update_avatar(file: FormData) {
     try {
       await this.api.update_avatar(file).then((response) => {
-        store.set("user.data.avatar", `https://ya-praktikum.tech/api/v2/resources/${response.avatar}`);
+        store.set("user.data.avatar", response.avatar);
       });
     } catch (e) {
       console.log(e);

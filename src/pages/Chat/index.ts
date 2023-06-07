@@ -87,7 +87,8 @@ class ChatPageBase extends Block<IChatPageProps> {
     this.children.addChatPopup = new AddChatPopup({});
     this.children.deleteChatPopup = new DeleteChatConfirmPopup({});
     this.children.addUserPopup = new AddUserPopup({
-      onUserItemClick: () => this.setProps({modals: { chat_add_user: false }})
+      onUserItemClick: () =>
+        this.setProps({ modals: { chat_add_user: false } }),
     });
     this.children.messenger = new Messenger({});
     this.children.messageInput = new Input({
@@ -101,11 +102,14 @@ class ChatPageBase extends Block<IChatPageProps> {
       events: {
         click: (e) => {
           e.preventDefault();
-          MessagesController.sendMessage(
-            this.props.selectedChat!,
-            (this.children.messageInput as Input).getValue()
-          );
-          (this.children.messageInput as Input).setValue("");
+          const input = this.children.messageInput as Input;
+          if (input.getValue() !== "") {
+            MessagesController.sendMessage(
+              this.props.selectedChat!,
+              input.getValue()
+            );
+            input.setValue("");
+          }
         },
       },
     });
