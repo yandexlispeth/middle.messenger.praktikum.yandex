@@ -1,12 +1,12 @@
-import Popup from "../Popup";
 import Input from "../Input";
 import Button from "../Button";
 import ChatController from "../../controllers/ChatsController";
 import template  from "./addChatPopup.hbs";
 import store from "../../utils/Store";
+import Block from "../Block";
 
 
-export class AddChatPopup extends Popup {
+export class AddChatPopup extends Block {
     init(): void {
         this.children.inputChatTitle = new Input({
             type: "text",

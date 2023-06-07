@@ -7,11 +7,11 @@ import { withStore } from "../../utils/Store";
 export interface IChatProps {
   id: number;
   title: string;
-  unread_count: string;
+  unread_count: number;
   selectedChat: number;
   events: {
     click: () => void;
-  }
+  };
 }
 
 export class ChatItemBase extends Block<IChatProps> {
@@ -32,9 +32,9 @@ export class ChatItemBase extends Block<IChatProps> {
     // });
 
     // this.children.labelChatTime = new Label({
-    //   value: this.props.selectedChat.toString(),
-    //   class: "chat-info-time"
-    // })
+    //   value: "101010",
+    //   class: "chat-info-time",
+    // });
   }
 
   // protected componentDidUpdate(oldProps: IChatProps, newProps: IChatProps): boolean {
@@ -53,6 +53,9 @@ export class ChatItemBase extends Block<IChatProps> {
   }
 }
 
+// export const withSelectedChat = withStore((state) => {
+//   return { selectedChat: state.selectedChat };
+// });
 
 export const withSelectedChat = withStore(state => { 
   return {selectedChat: state.selectedChat} || undefined});

@@ -1,10 +1,10 @@
 import Button from "../Button";
-import Popup from "../Popup";
 import template from "./deleteChatConfirmPopup.hbs";
 import ChatController from "../../controllers/ChatsController";
 import store from "../../utils/Store";
+import Block from "../Block";
 
-export class DeleteChatConfirmPopup extends Popup {
+export class DeleteChatConfirmPopup extends Block {
     init() {
         this.children.btnConfirm = new Button({
             label: "Да",

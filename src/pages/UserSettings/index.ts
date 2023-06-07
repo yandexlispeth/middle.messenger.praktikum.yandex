@@ -26,8 +26,8 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
       },
     });
     this.children.profileInfoBlock = new ProfileInfoBlock({
-      avatar: store.getState().user?.data?.avatar ? `https://ya-praktikum.tech/api/v2/resources/${
-        store.getState().user?.data?.avatar}` : '',
+      avatar: this.props.avatar ? `https://ya-praktikum.tech/api/v2/resources/${
+        this.props.avatar}` : '',
       userName: this.props.first_name,
       userEmail: this.props.email,
     });
@@ -52,9 +52,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
           e.preventDefault();
           const formAvatar = document.getElementById("formAvatar");
           const form = new FormData(formAvatar as HTMLFormElement);
-          UserController.update_avatar(form).then(() =>
-            this.dispatchComponentDidMount()
-          );
+          UserController.update_avatar(form);
         },
       },
     });
@@ -146,10 +144,10 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
       });
     }
 
-    console.log("AATAR");
     if (oldProps.avatar !== newProps.avatar) {
       (this.children.profileInfoBlock as Block).setProps({
-        avatar: newProps.avatar,
+        avatar: `https://ya-praktikum.tech/api/v2/resources/${
+          newProps.avatar}`,
       });
     }
 
@@ -159,7 +157,6 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
   saveForm() {
     const data = (this.children.formUserSettings as Form).getValues();
     UserController.change_profile(data as IUser).then(() => {
-      this.dispatchComponentDidMount();
       (this.children.formUserSettings as Form).reset();
     });
   }

@@ -13,7 +13,8 @@ interface IProfileInfoBlockProps {
 export class ProfileInfoBlock extends Block<IProfileInfoBlockProps> {
   init() {
     this.children.Avatar = new Avatar({
-      src: this.props.avatar
+      src: this.props.avatar,
+      class: "user-avatar"
     })
     this.children.labelName = new Label({
       value: this.props.userName,

@@ -69,7 +69,6 @@ class MessagesController {
   }
 
   private onMessage(id: number, messages: Message | Message[]) {
-    console.log("onMessage");
     let messagesToAdd: Message[] = [];
 
     if (Array.isArray(messages)) {
@@ -93,13 +92,12 @@ class MessagesController {
   }
 
   private subscribe(transport: WSTransport, id: number) {
-    transport.on(WSTransportEvents.Message, (message) =>
+    transport.on(WSTransportEvents.Message, (message) => 
       this.onMessage(id, message)
     );
     transport.on(WSTransportEvents.Close, (id: number) => this.onClose(id));
   }
 }
 const messages_controller = new MessagesController();
-//@ts-ignore
-window.messagesController = messages_controller;
+
 export default messages_controller;
