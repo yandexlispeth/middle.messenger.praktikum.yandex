@@ -26,8 +26,9 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
       },
     });
     this.children.profileInfoBlock = new ProfileInfoBlock({
-      avatar: this.props.avatar ? `https://ya-praktikum.tech/api/v2/resources/${
-        this.props.avatar}` : '',
+      avatar: this.props.avatar
+        ? `https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`
+        : "",
       userName: this.props.first_name,
       userEmail: this.props.email,
     });
@@ -146,8 +147,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
 
     if (oldProps.avatar !== newProps.avatar) {
       (this.children.profileInfoBlock as Block).setProps({
-        avatar: `https://ya-praktikum.tech/api/v2/resources/${
-          newProps.avatar}`,
+        avatar: `https://ya-praktikum.tech/api/v2/resources/${newProps.avatar}`,
       });
     }
 
@@ -156,6 +156,9 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
 
   saveForm() {
     const data = (this.children.formUserSettings as Form).getValues();
+    if (!data) {
+      return;
+    }
     UserController.change_profile(data as IUser).then(() => {
       (this.children.formUserSettings as Form).reset();
     });

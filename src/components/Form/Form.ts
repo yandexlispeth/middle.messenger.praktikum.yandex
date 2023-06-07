@@ -2,6 +2,7 @@ import Block from "../Block";
 import Button from "../Button";
 import template from "./form.hbs";
 import Field from "../../blocks/Field";
+import { validate } from "../../controllers/validate";
 
 interface IFormValidationErrorProps {
     error_message?: string;
@@ -65,6 +66,9 @@ export class Form extends Block<IFormProps, HTMLFormElement> {
         const data_object = {};
 
         for (const [name, value] of formData) {
+            if(validate(name, value.toString()) !== "") {
+                return;
+            }
             Object.assign(data_object, {[name]: value});
         }
         return data_object;

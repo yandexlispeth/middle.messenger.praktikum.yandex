@@ -64,6 +64,9 @@ export default class UserChangePasswordPage extends Block {
 
   saveForm() {
     const data = (this.children.formUserChangePassword as Form).getValues();
+    if (!data) {
+      return;
+    }
     UserController.change_password(data as IUserChangePassword).then(() => {
       this.dispatchComponentDidMount();
       (this.children.formUserChangePassword as Form).reset();
