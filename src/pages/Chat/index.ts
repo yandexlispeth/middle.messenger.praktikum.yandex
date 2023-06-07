@@ -14,6 +14,9 @@ import { Messenger } from "../../components/Messenger";
 import AddUserPopup from "../../components/AddUserPopup";
 import Label from "../../components/Label";
 import { IChatInfo } from "../../api/ChatApi";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import MessagesController from "../../controllers/MessagesController";
 
 interface IChatPageProps {
   chats: IChatInfo[];
@@ -51,12 +54,6 @@ class ChatPageBase extends Block<IChatPageProps> {
       },
     });
 
-    // this.children.inputSearch = new Input({
-    //   type: "text",
-    //   name: "search",
-    //   placeholder: "Поиск",
-    // });
-
     this.children.smallAvatar = new Avatar({
       class: "avatar_small",
     });
@@ -64,8 +61,8 @@ class ChatPageBase extends Block<IChatPageProps> {
     this.children.chatTitle = new Label({});
 
     this.children.chatDate = new Label({
-      value: new Date().toDateString()
-    })
+      value: new Date().toDateString(),
+    });
 
     this.children.contextMenu = new ContextMenu({
       events: {
@@ -89,22 +86,29 @@ class ChatPageBase extends Block<IChatPageProps> {
 
     this.children.addChatPopup = new AddChatPopup({});
     this.children.deleteChatPopup = new DeleteChatConfirmPopup({});
-    this.children.addUserPopup = new AddUserPopup({});
-
+    this.children.addUserPopup = new AddUserPopup({
+      onUserItemClick: () => this.setProps({modals: { chat_add_user: false }})
+    });
     this.children.messenger = new Messenger({});
-    
+    this.children.messageInput = new Input({
+      type: "text",
+      name: "message",
+      placeholder: "Введите ваше сообщение",
+    });
 
-    // this.children.messageLeft = new Message({
-    //   message_text: text,
-    //   is_left: true,
-    //   message_time: "20:00",
-    // });
-
-    // this.children.messageRight = new Message({
-    //   message_text: text2,
-    //   is_left: false,
-    //   message_time: "10:00",
-    // });
+    this.children.sendButton = new Button({
+      label: "",
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          MessagesController.sendMessage(
+            this.props.selectedChat!,
+            (this.children.messageInput as Input).getValue()
+          );
+          (this.children.messageInput as Input).setValue("");
+        },
+      },
+    });
   }
 
   protected componentDidUpdate(
@@ -120,10 +124,9 @@ class ChatPageBase extends Block<IChatPageProps> {
         selectedChat: newProps.selectedChat,
       });
       (this.children.chatTitle as Label).setProps({
-        value: this.props.selectedChat.toString()
-      })
+        value: this.props.selectedChat.toString(),
+      });
     }
-
     return true;
   }
 

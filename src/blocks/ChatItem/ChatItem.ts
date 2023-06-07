@@ -17,7 +17,7 @@ export interface IChatProps {
 export class ChatItemBase extends Block<IChatProps> {
 
   init() {
-    this.children.bigAvatar = new Avatar({
+    this.children.smallAvatar = new Avatar({
       class: "chat_item__avatar",
     });
 

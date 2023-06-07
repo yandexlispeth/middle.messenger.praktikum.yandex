@@ -1,11 +1,13 @@
 import { IUser } from "../../api/AuthApi";
 import UserItem from "../../blocks/UserItem";
-import { withStore } from "../../utils/Store";
+import ChatsController from "../../controllers/ChatsController";
+import store, { withStore } from "../../utils/Store";
 import Block from "../Block";
 import template from "./usersList.hbs";
 
 interface IUserList {
   users: IUser[];
+  onUserItemClick: () => void;
 }
 
 class UsersListBase extends Block<IUserList> {
@@ -35,7 +37,9 @@ class UsersListBase extends Block<IUserList> {
           ...data,
           events: {
             click: () => {
-              console.log(`Click on ${data.id}`);
+              ChatsController.addUserToChat(store.getState().selectedChat!, data.id);
+              this.props.onUserItemClick();
+              store.set("foundUsers", []);
             },
           },
         });

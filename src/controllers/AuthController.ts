@@ -3,6 +3,7 @@ import store from "../utils/Store";
 import Router from "../utils/Router";
 import {Routes} from "../index";
 import router from "../utils/Router";
+import MessagesController from "./MessagesController";
 
 class AuthController {
     private api: AuthApi;
@@ -33,8 +34,11 @@ class AuthController {
 
     async logout() {
         try {
+            MessagesController.closeAll();
             await this.api.logout();
             store.set("user", undefined);
+            store.set("chats", undefined);
+            store.set("messages", undefined);
             Router.go(Routes.Index);
         } catch (e) {
             console.log(e);

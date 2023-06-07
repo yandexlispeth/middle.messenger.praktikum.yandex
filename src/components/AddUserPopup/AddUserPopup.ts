@@ -1,4 +1,3 @@
-import Popup from "../Popup";
 import Input from "../Input";
 import Button from "../Button";
 import template from "./addUserPopup.hbs";
@@ -6,8 +5,13 @@ import store from "../../utils/Store";
 import UserController from "../../controllers/UserController";
 import { IUser } from "../../api/AuthApi";
 import UsersList from "../UsersList";
+import Block from "../Block";
 
-export class AddUserPopup extends Popup {
+interface IAddUserPopup {
+  onUserItemClick: () => void;
+}
+
+export class AddUserPopup extends Block<IAddUserPopup> {
   init(): void {
     this.children.inputUserLogin = new Input({
       type: "text",
@@ -20,8 +24,6 @@ export class AddUserPopup extends Popup {
       events: {
         click: () => {
           this.getUsers();
-          (this.children.inputUserLogin as Input).setValue("");
-          store.set("modals.chat_add_user", false);
         },
       },
     });
@@ -36,9 +38,14 @@ export class AddUserPopup extends Popup {
       },
     });
 
-    this.children.userList = new UsersList({});
+    this.children.userList = new UsersList({
+      onUserItemClick: () => {
+        this.props.onUserItemClick();
+        (this.children.inputUserLogin as Input).setValue('');
+      }
+    });
   }
-
+  
   async getUsers(): Promise<IUser[] | undefined> {
     return await UserController.search_user(
       (this.children.inputUserLogin as Input).getValue()

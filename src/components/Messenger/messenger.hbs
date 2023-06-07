@@ -1,15 +1,5 @@
 <div class="messages-field__container">
-    {{#if selectedChat }}
-        <div class="{{ styles.messenger__messages }}">
             {{#each messages}}
                 {{{this}}}
             {{/each}}
-        </div>
-        <div class="footer">
-            {{{messageInput}}}
-            {{{sendButton}}}
-        </div>
-    {{else}}
-        Выберете чат
-    {{/if}}
 </div>

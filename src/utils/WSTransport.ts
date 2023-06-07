@@ -9,7 +9,7 @@ export enum WSTransportEvents {
 
 export class WSTransport extends EventBus {
   private socket: WebSocket | null = null;
-  private pingInterval = undefined;
+  private pingInterval = 0;
 
   constructor(private url: string) {
     super();
@@ -38,29 +38,38 @@ export class WSTransport extends EventBus {
 
   private setupPing() {
     this.pingInterval = setInterval(() => {
-      this.send({ type: 'ping' });
-    }, 5000)
+      this.send({ type: "ping" });
+    }, 5000);
 
     this.on(WSTransportEvents.Close, () => {
       clearInterval(this.pingInterval);
 
       this.pingInterval = 0;
-    })
+    });
   }
 
   public close() {
     if (!this.socket) {
-        throw new Error("Socket is not connected!");
-      }
+      throw new Error("Socket is not connected!");
+    }
 
     this.socket.close();
   }
 
   public subscribe(socket: WebSocket) {
-     socket?.addEventListener("message", (message) => {
+    socket.addEventListener("message", (message) => {
       const data = JSON.parse(message.data);
+      console.log("data", data);
 
-    //   this.emit(WSTransportEvents.Message, data);
+      if(data.type === 'pong') {
+        return;
+      }
+      
+      this.emit(WSTransportEvents.Message, data);
     });
+
+    socket.addEventListener("close", () => {this.emit(WSTransportEvents.Close)});
+    socket.addEventListener("open", () => {this.emit(WSTransportEvents.Connected)});
+    socket.addEventListener("error", () => {this.emit(WSTransportEvents.Error)}); 
   }
 }

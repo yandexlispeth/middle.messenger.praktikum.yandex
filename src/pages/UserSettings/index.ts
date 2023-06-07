@@ -24,26 +24,13 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
       events: {
         click: () => Router.back(),
       },
-      // class: "user-settings__btnback"
     });
     this.children.profileInfoBlock = new ProfileInfoBlock({
-      avatar: `https://ya-praktikum.tech/api/v2/resources/${
-        store.getState().user?.data?.avatar
-      }`,
+      avatar: store.getState().user?.data?.avatar ? `https://ya-praktikum.tech/api/v2/resources/${
+        store.getState().user?.data?.avatar}` : '',
       userName: this.props.first_name,
       userEmail: this.props.email,
     });
-
-    // this.children.popupAvatar = new Dialog({style: "display: none"});
-
-    // this.children.linkPopupAvatar = new Link({
-    //     label: 'Изменить аватар',
-    //     events: {
-    //         click: () => {
-    //             (this.children.popupAvatar as Block).hide();
-    //         }
-    //     }
-    // });
 
     this.children.formAvatar = new Form({
       id: "formAvatar",
@@ -159,6 +146,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
       });
     }
 
+    console.log("AATAR");
     if (oldProps.avatar !== newProps.avatar) {
       (this.children.profileInfoBlock as Block).setProps({
         avatar: newProps.avatar,
