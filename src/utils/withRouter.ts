@@ -14,8 +14,3 @@ export interface WithRouterProps {
       }
     };
   }
-
-//  export function withControllers(Component: typeof Block) {
-
-//   return class WithConroller extends 
-//  }

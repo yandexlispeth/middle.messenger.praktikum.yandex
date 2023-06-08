@@ -5,6 +5,7 @@ import Block from "../Block";
 interface IChatSettingsPopupProps {
   onDeleteClick?: () => void;
   onAddUser?: () => void;
+  onDeleteUser?: () => void;
 }
 
 export class ChatSettingsPopup extends Block<IChatSettingsPopupProps> {
@@ -12,14 +13,30 @@ export class ChatSettingsPopup extends Block<IChatSettingsPopupProps> {
     this.children.deleteChatLink = new Link({
       label: "Удалить чат",
       events: {
-        click: () => this.props.onDeleteClick?.(),
+        click: (e: Event) => {
+          e.preventDefault();
+          this.props.onDeleteClick?.();
+        },
       },
     });
 
     this.children.addUser = new Link({
       label: "Добавить пользователя",
       events: {
-        click: () => this.props.onAddUser?.(),
+        click: (e: Event) => {
+          e.preventDefault();
+          this.props.onAddUser?.();
+        },
+      },
+    });
+
+    this.children.deleteUser = new Link({
+      label: "Удалить пользователя из чата",
+      events: {
+        click: (e: Event) => {
+          e.preventDefault();
+          this.props.onDeleteUser?.();
+        },
       },
     });
   }

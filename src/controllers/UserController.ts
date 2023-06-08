@@ -9,9 +9,9 @@ class UserController {
     this.api = new UserApi();
   }
 
-  async change_profile(data: IUser) {
+  async changeProfile(data: IUser) {
     try {
-      const new_profile = await this.api.change_profile(data);
+      const new_profile = await this.api.changeProfile(data);
       store.set("user.data", new_profile);
       alert("Данные успешно изменены");
     } catch (e) {
@@ -19,9 +19,9 @@ class UserController {
     }
   }
 
-  async change_password(data: IUserChangePassword) {
+  async changePassword(data: IUserChangePassword) {
     try {
-      await this.api.change_password(data);
+      await this.api.changePassword(data);
       alert("Пароль успешно изменён!");
     } catch (e) {
       alert("Не получилось :(");
@@ -29,9 +29,9 @@ class UserController {
     }
   }
 
-  async update_avatar(file: FormData) {
+  async updateAvatar(file: FormData) {
     try {
-      await this.api.update_avatar(file).then((response) => {
+      await this.api.updateAvatar(file).then((response) => {
         store.set("user.data.avatar", response.avatar);
       });
     } catch (e) {
@@ -39,9 +39,9 @@ class UserController {
     }
   }
 
-  async search_user(login: string) {
+  async searchUser(login: string) {
     try {
-      return await this.api.search_user(login).then((response) => {
+      return await this.api.searchUser(login).then((response) => {
         store.set("foundUsers", response);
         return response;
       });

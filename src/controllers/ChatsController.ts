@@ -1,3 +1,4 @@
+import { IUser } from "../api/AuthApi";
 import ChatApi from "../api/ChatApi";
 import store from "../utils/Store";
 import MessagesController from "./MessagesController";
@@ -10,7 +11,9 @@ class ChatsController {
   }
 
   async create(title: string) {
-    await this.api.create(title).then((res:any) => store.set("selectedChat", res.id));
+    await this.api
+      .create(title)
+      .then((res: any) => store.set("selectedChat", res.id));
     this.fetchChats();
   }
 
@@ -25,8 +28,22 @@ class ChatsController {
     store.set("chats", chats);
   }
 
-  addUserToChat(id: number, userId: number) {
-    this.api.addUsers(id, [userId]);
+  addUserToChat(id: number, user_id: number) {
+    this.api.addUsers(id, [user_id]);
+  }
+
+  deleteUserFromChat(id: number, user_id: number) {
+    this.api.deleteUsers(id, [user_id]);
+  }
+
+  async getUsersFromChat(id: number): Promise<IUser[] | undefined> {
+    try {
+      return await this.api.getUsersFromChat(id).then((response) => {
+        return response;
+      });
+    } catch (e) {
+      console.log("Error", e);
+    }
   }
 
   async delete(id: number) {

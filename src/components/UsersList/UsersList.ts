@@ -1,20 +1,15 @@
 import { IUser } from "../../api/AuthApi";
 import UserItem from "../../blocks/UserItem";
-import ChatsController from "../../controllers/ChatsController";
-import store, { withStore } from "../../utils/Store";
+import { withStore } from "../../utils/Store";
 import Block from "../Block";
 import template from "./usersList.hbs";
 
 interface IUserList {
   users: IUser[];
-  onUserItemClick: () => void;
+  onUserItemClick: (user_id: number) => void;
 }
 
 class UsersListBase extends Block<IUserList> {
-  init() {
-    // this.children.usersList = this.createUserList(this.props.users)!;
-  }
-
   render() {
     return this.compile(template, {});
   }
@@ -37,9 +32,7 @@ class UsersListBase extends Block<IUserList> {
           ...data,
           events: {
             click: () => {
-              ChatsController.addUserToChat(store.getState().selectedChat!, data.id);
-              this.props.onUserItemClick();
-              store.set("foundUsers", []);
+              this.props.onUserItemClick(data.id);
             },
           },
         });

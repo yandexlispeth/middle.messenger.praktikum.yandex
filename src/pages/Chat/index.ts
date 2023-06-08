@@ -4,7 +4,7 @@ import Block from "../../components/Block";
 import template from "./chat.hbs";
 import Link from "../../components/Link";
 import { Routes } from "../../index";
-import { withStore } from "../../utils/Store";
+import store, { withStore } from "../../utils/Store";
 import ChatController from "../../controllers/ChatsController";
 import ChatSettingsPopup from "../../components/ChatSettingsPopup";
 import AddChatPopup from "../../components/AddChatPopup";
@@ -17,6 +17,9 @@ import { IChatInfo } from "../../api/ChatApi";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import MessagesController from "../../controllers/MessagesController";
+import DeleteUserPopup from "../../components/DeleteUserPopup/DeleteUserPopup";
+import ChatsController from "../../controllers/ChatsController";
+import { IUser } from "../../api/AuthApi";
 
 interface IChatPageProps {
   chats: IChatInfo[];
@@ -27,6 +30,7 @@ interface IChatPageProps {
     chat_add?: boolean;
     chat_delete?: boolean;
     chat_add_user?: boolean;
+    chat_delete_user?: boolean;
   };
 }
 class ChatPageBase extends Block<IChatPageProps> {
@@ -82,13 +86,36 @@ class ChatPageBase extends Block<IChatPageProps> {
         this.setProps({ modals: { chat_settings: false } });
         this.setProps({ modals: { chat_add_user: true } });
       },
+
+      onDeleteUser: () => {
+        this.setProps({ modals: { chat_settings: false } });
+        ChatsController.getUsersFromChat(store.getState().selectedChat!).then((response:IUser[]) => {
+          this.setProps({ modals: { chat_delete_user: true } });
+          (this.children.deleteUserPopup as DeleteUserPopup).setProps({
+            users: response
+          })
+        })
+      },
     });
 
     this.children.addChatPopup = new AddChatPopup({});
     this.children.deleteChatPopup = new DeleteChatConfirmPopup({});
     this.children.addUserPopup = new AddUserPopup({
-      onUserItemClick: () =>
-        this.setProps({ modals: { chat_add_user: false } }),
+      onUserItemClick: (user_id: number) => {
+        ChatsController.addUserToChat(store.getState().selectedChat!, user_id);
+        this.setProps({ modals: { chat_add_user: false } });
+        store.set("foundUsers", []);
+      },
+    });
+
+    this.children.deleteUserPopup = new DeleteUserPopup({
+      onUserItemClick: (user_id: number) => {
+        ChatsController.deleteUserFromChat(
+          store.getState().selectedChat!,
+          user_id
+        );
+        this.setProps({ modals: { chat_delete_user: false } });
+      },
     });
     this.children.messenger = new Messenger({});
     this.children.messageInput = new Input({
@@ -140,6 +167,7 @@ class ChatPageBase extends Block<IChatPageProps> {
       isChatAddPopupShown: this.props.modals?.chat_add,
       isChatDeletePopupShown: this.props.modals?.chat_delete,
       isUserAddPopupShown: this.props.modals?.chat_add_user,
+      isUserDeletePopupShown: this.props.modals?.chat_delete_user,
       isSelectedChat: this.props.selectedChat,
     });
   }

@@ -25,37 +25,14 @@ export class ChatItemBase extends Block<IChatProps> {
       value: this.props.title,
       class: "chat-info-name",
     });
-
-    // this.children.labelChatInfo = new Label({
-    //   value: this.props.unread_count.toString(),
-    //   class: "chat-info__message",
-    // });
-
-    // this.children.labelChatTime = new Label({
-    //   value: "101010",
-    //   class: "chat-info-time",
-    // });
   }
-
-  // protected componentDidUpdate(oldProps: IChatProps, newProps: IChatProps): boolean {
-  //   if(oldProps.selectedChat !== newProps.selectedChat) {
-  //     this.setProps({
-  //       selectedChat: newProps.selectedChat
-  //     })
-  //   }
-
-  //   return true;
-    
-  // }
-
+  
   render() {
       return this.compile(template, {...this.props, isSelected: this.props.id === this.props.selectedChat});
   }
 }
 
-// export const withSelectedChat = withStore((state) => {
-//   return { selectedChat: state.selectedChat };
-// });
+
 
 export const withSelectedChat = withStore(state => { 
   return {selectedChat: state.selectedChat} || undefined});

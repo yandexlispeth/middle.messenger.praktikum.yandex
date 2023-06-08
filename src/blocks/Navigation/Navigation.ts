@@ -3,13 +3,6 @@ import Link from "../../components/Link";
 import template from "./navigation.hbs";
 import {Routes} from "../../index";
 
-// interface ILinkProps {
-//   value: string;
-//   events?: {
-//     click: () => void;
-//   };
-// }
-
 
 export class Navigation extends Block {
   render() {

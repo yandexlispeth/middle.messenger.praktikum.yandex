@@ -11,10 +11,6 @@ interface IChatsListProps {
 }
 
 export class ChatsList extends Block<IChatsListProps> {
-  init() {
-    // this.children.chats = this.createChats(this.props);
-  }
-
   protected componentDidUpdate(
     oldProps: IChatsListProps,
     newProps: IChatsListProps

@@ -59,7 +59,6 @@ export class WSTransport extends EventBus {
   public subscribe(socket: WebSocket) {
     socket.addEventListener("message", (message) => {
       const data = JSON.parse(message.data);
-      console.log("data", data);
 
       if(data.type === 'pong') {
         return;

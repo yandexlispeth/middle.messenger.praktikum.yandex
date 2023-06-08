@@ -20,6 +20,7 @@ export interface State {
     chat_settings?: boolean;
     chat_add?: boolean;
     chat_add_user?: boolean;
+    chat_delete_user?:boolean;
     chat_delete?: boolean;
   };
   messages?: Record<number, Message[]>;

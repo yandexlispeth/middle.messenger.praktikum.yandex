@@ -1,56 +1,50 @@
-import Block from './components/Block';
-import AuthorizationPage from './pages/Authorization';
-import {ChatPage} from './pages/Chat';
-import RegistrationPage from './pages/Registration';
-import UserChangePasswordPage from './pages/UserChangePassword';
+import Block from "./components/Block";
+import AuthorizationPage from "./pages/Authorization";
+import { ChatPage } from "./pages/Chat";
+import RegistrationPage from "./pages/Registration";
+import UserChangePasswordPage from "./pages/UserChangePassword";
 
-import Router from './utils/Router';
+import Router from "./utils/Router";
 import AuthController from "./controllers/AuthController";
-import {UserSettingsPage} from "./pages/UserSettings";
+import { UserSettingsPage } from "./pages/UserSettings";
 
 export enum Routes {
-    Index = '/',
-    Register = '/sign-up',
-    Profile = '/profile',
-    Messenger = '/messenger',
-    Password = '/password'
+  Index = "/",
+  Register = "/sign-up",
+  Profile = "/profile",
+  Messenger = "/messenger",
+  Password = "/password",
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
-    // const root = document.querySelector('#app');
+window.addEventListener("DOMContentLoaded", async () => {
+  const router = Router;
 
-    // const home_page = new ChatPage();
-    // root?.append(home_page.getContent()!);
-    // home_page.dispatchComponentDidMount();
+  router
+    .use(Routes.Index, AuthorizationPage as typeof Block)
+    .use(Routes.Register, RegistrationPage as typeof Block)
+    .use(Routes.Profile, UserSettingsPage as typeof Block)
+    .use(Routes.Messenger, ChatPage as typeof Block)
+    .use(Routes.Password, UserChangePasswordPage as typeof Block);
 
-    const router = Router;
+  let is_protected = true;
 
-    router
-        .use(Routes.Index, AuthorizationPage as typeof Block)
-        .use(Routes.Register, RegistrationPage as typeof Block)
-        .use(Routes.Profile, UserSettingsPage as typeof Block)
-        .use(Routes.Messenger, ChatPage as typeof Block)
-        .use(Routes.Password, UserChangePasswordPage as typeof Block);
+  switch (window.location.pathname) {
+    case Routes.Index:
+    case Routes.Register:
+      is_protected = false;
+      break;
+  }
 
-    let is_protected = true;
-
-    switch (window.location.pathname) {
-        case Routes.Index:
-        case Routes.Register:
-            is_protected = false;
-            break;
+  try {
+    await AuthController.fetchUser();
+    Router.start();
+    if (!is_protected) {
+      Router.go(Routes.Messenger);
     }
-
-    try {
-        await AuthController.fetchUser();
-        Router.start();
-        if (!is_protected) {
-            Router.go(Routes.Messenger);
-        }
-    } catch (e) {
-        Router.start();
-        if (is_protected) {
-            Router.go(Routes.Index);
-        }
+  } catch (e) {
+    Router.start();
+    if (is_protected) {
+      Router.go(Routes.Index);
     }
-})
+  }
+});

@@ -31,12 +31,6 @@ export class Field extends Block<IFieldProps> {
       name: this.props.input.name,
       placeholder: this.props.input.placeholder,
       events: {
-        // focus: () => {
-        //   const value = (this.children.input as Input).value;
-        //   // (this.children.validation_error as ValidationError).setProps({
-        //   //   error_message: validate(this.props.input.name, value),
-        //   // });
-        // },
         blur: () => {
           const value = (this.children.input as Input).getValue();
           (this.children.validation_error as ValidationError).setProps({

@@ -17,10 +17,6 @@ export class MessengerBase extends Block<IMessengerProps> {
     super(props);
   }
 
-  protected init() {
-    // this.children.messages = this.createMessages(this.props);
-  }
-
   protected componentDidUpdate(
     oldProps: IMessengerProps,
     newProps: IMessengerProps

@@ -11,19 +11,19 @@ export default class UserApi extends BaseAPI {
     super("/user");
   }
 
-  change_profile(data: IUser): Promise<IUser> {
+  changeProfile(data: IUser): Promise<IUser> {
     return this.http.put("/profile", data);
   }
 
-  change_password(data: IUserChangePassword): Promise<boolean> {
+  changePassword(data: IUserChangePassword): Promise<boolean> {
     return this.http.put("/password", data);
   }
 
-  update_avatar(file: FormData): Promise<IUser> {
+  updateAvatar(file: FormData): Promise<IUser> {
     return this.http.put("/profile/avatar", file);
   }
 
-  search_user(login: string): Promise<IUser[]> {
+  searchUser(login: string): Promise<IUser[]> {
     return this.http.post("/search", { login: login });
   }
 

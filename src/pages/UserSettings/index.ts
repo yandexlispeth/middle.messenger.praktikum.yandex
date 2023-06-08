@@ -53,7 +53,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
           e.preventDefault();
           const formAvatar = document.getElementById("formAvatar");
           const form = new FormData(formAvatar as HTMLFormElement);
-          UserController.update_avatar(form);
+          UserController.updateAvatar(form);
         },
       },
     });
@@ -159,7 +159,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
     if (!data) {
       return;
     }
-    UserController.change_profile(data as IUser).then(() => {
+    UserController.changeProfile(data as IUser).then(() => {
       (this.children.formUserSettings as Form).reset();
     });
   }

@@ -8,7 +8,7 @@ import UsersList from "../UsersList";
 import Block from "../Block";
 
 interface IAddUserPopup {
-  onUserItemClick: () => void;
+  onUserItemClick: (user_id: number) => void;
 }
 
 export class AddUserPopup extends Block<IAddUserPopup> {
@@ -39,15 +39,15 @@ export class AddUserPopup extends Block<IAddUserPopup> {
     });
 
     this.children.userList = new UsersList({
-      onUserItemClick: () => {
-        this.props.onUserItemClick();
+      onUserItemClick: (user_id:number) => {
+        this.props.onUserItemClick(user_id);
         (this.children.inputUserLogin as Input).setValue('');
       }
     });
   }
   
   async getUsers(): Promise<IUser[] | undefined> {
-    return await UserController.search_user(
+    return await UserController.searchUser(
       (this.children.inputUserLogin as Input).getValue()
     );
   }
