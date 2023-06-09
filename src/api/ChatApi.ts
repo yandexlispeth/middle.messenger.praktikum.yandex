@@ -50,7 +50,6 @@ export default class ChatApi extends BaseAPI {
   }
 
   async getUsersFromChat(chat_id: number):Promise<IUser[]> {
-    console.log("GEEIKJHA");
     return this.http.get(`/${chat_id}/users`);
   }
 

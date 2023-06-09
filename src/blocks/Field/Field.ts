@@ -22,6 +22,7 @@ interface IFieldValidationErrorProps {
 interface IFieldProps {
   input: IFieldInputProps;
   validation_error?: IFieldValidationErrorProps;
+  class?: string;
 }
 
 export class Field extends Block<IFieldProps> {
@@ -39,12 +40,13 @@ export class Field extends Block<IFieldProps> {
         },
       },
     });
+
     this.children.validation_error = new ValidationError(
       this.props.validation_error
     );
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, this.props);
   }
 }

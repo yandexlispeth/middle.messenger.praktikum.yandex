@@ -8,7 +8,7 @@ interface IDeleteUserPopup {
   onUserItemClick: (user_id: number) => void;
 }
 
-export default class DeleteUserPopup extends Block<IDeleteUserPopup> {
+export class DeleteUserPopup extends Block<IDeleteUserPopup> {
   init() {
     this.children.userList = new UsersList({
       onUserItemClick: (user_id: number) => this.props.onUserItemClick(user_id),

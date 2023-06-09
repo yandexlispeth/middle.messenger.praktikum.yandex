@@ -3,6 +3,7 @@
     --chats-border-color: #EAEAEA;
     --chats-font-color: #999;
     --chats-profile-name-color: #000;
+    --chats-message-item-bgcolor: #e5e9f6;
     --chats-message-item-bgcolor-hover: #B1C3EF;
 }
 
@@ -22,13 +23,11 @@
 }
 
 .chat_item__avatar {
+    border: #cdc9c9 1px solid;
+    border-radius: 50%;
+    background-color: var(--chats-message-item-bgcolor);
     height: 37px;
     width:37px;
-}
-
-.chat_item__avatar img {
-    background-size: 37px;
-    background-repeat: no-repeat;
 }
 
 .chat-info-name {

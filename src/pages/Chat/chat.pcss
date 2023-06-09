@@ -4,6 +4,7 @@
   --chats-font-color: #999;
   --chats-profile-name-color: #000;
   --chats-messages-color: #1e1e1e;
+  --chats-avatar-bgcolor: #B1C3EF;
 }
 
 .chats-container__grid {
@@ -41,12 +42,10 @@
   content: "";
   margin-left: 10px;
   margin-right: 5px;
-  /* content:""; */
 }
 
 .chat-adduser__label {
   font-size: large;
-  /* font-weight: bold; */
   padding-right: 25px;
   text-align: end;
 }
@@ -70,6 +69,9 @@
 .avatar_small {
   height: 34px;
   width: 34px;
+  border: var(--chats-border-color) 1px solid;
+  border-radius: 50%;
+  background-color: var(--chats-avatar-bgcolor);
 }
 
 .chats-list__container {
@@ -127,6 +129,10 @@
   width: 100%;
 }
 
+.messenger-field {
+  display: inline-block;
+}
+
 .footer {
   width: 100%;
   position: absolute;
@@ -134,12 +140,14 @@
 }
 
 .footer input {
+  display: inline-block;
   position: relative;
   bottom: 20px;
   width: 955px;
 }
 
 .footer button {
+  display: inline-block;
   position: relative;
   bottom: 12px;
 }

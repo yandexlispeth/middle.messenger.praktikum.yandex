@@ -89,7 +89,6 @@ export default class Block<
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected init() {}
 
   _componentDidMount() {
@@ -149,7 +148,7 @@ export default class Block<
 
     return temp.content;
   }
-// eslint-disable-next-line @typescript-eslint/no-empty-function
+
   protected componentDidMount() {}
 
   dispatchComponentDidMount() {

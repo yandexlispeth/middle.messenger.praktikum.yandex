@@ -22,7 +22,7 @@
     {{#if isSelectedChat}}
     <div class="messages-grid">
         <div class="companion-info__wrapper">
-            {{{smallAvatar}}}
+            <div class="avatar_small"></div>
             <div class="profile-info__name">
                 {{{chatTitle}}}
             </div>
@@ -46,8 +46,7 @@
         <div class="messages-date">{{{chatDate}}}</div>
             {{{messenger}}}
         <div class="footer">
-            {{{messageInput}}}
-            {{{sendButton}}}
+            {{{messageForm}}}
         </div>
     </div>
     {{else}}

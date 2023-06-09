@@ -1,25 +1,23 @@
-import Avatar from "../../components/Avatar";
+import { IUser } from "../../api/AuthApi";
+import { IChatInfo } from "../../api/ChatApi";
+import ChatsList from "../../blocks/ChatsList";
 import ContextMenu from "../../blocks/ContextMenu";
+import AddChatPopup from "../../components/AddChatPopup";
+import AddUserPopup from "../../components/AddUserPopup";
+import Avatar from "../../components/Avatar";
 import Block from "../../components/Block";
-import template from "./chat.hbs";
+import ChatSettingsPopup from "../../components/ChatSettingsPopup";
+import DeleteChatConfirmPopup from "../../components/DeleteChatConfirmPopup";
+import DeleteUserPopup from "../../components/DeleteUserPopup";
+import Form from "../../components/Form";
+import Label from "../../components/Label";
 import Link from "../../components/Link";
+import { Messenger } from "../../components/Messenger";
+import { default as ChatController, default as ChatsController } from "../../controllers/ChatsController";
+import MessagesController from "../../controllers/MessagesController";
 import { Routes } from "../../index";
 import store, { withStore } from "../../utils/Store";
-import ChatController from "../../controllers/ChatsController";
-import ChatSettingsPopup from "../../components/ChatSettingsPopup";
-import AddChatPopup from "../../components/AddChatPopup";
-import DeleteChatConfirmPopup from "../../components/DeleteChatConfirmPopup";
-import ChatsList from "../../blocks/ChatsList";
-import { Messenger } from "../../components/Messenger";
-import AddUserPopup from "../../components/AddUserPopup";
-import Label from "../../components/Label";
-import { IChatInfo } from "../../api/ChatApi";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import MessagesController from "../../controllers/MessagesController";
-import DeleteUserPopup from "../../components/DeleteUserPopup/DeleteUserPopup";
-import ChatsController from "../../controllers/ChatsController";
-import { IUser } from "../../api/AuthApi";
+import template from "./chat.hbs";
 
 interface IChatPageProps {
   chats: IChatInfo[];
@@ -58,10 +56,6 @@ class ChatPageBase extends Block<IChatPageProps> {
       },
     });
 
-    this.children.smallAvatar = new Avatar({
-      class: "avatar_small",
-    });
-
     this.children.chatTitle = new Label({});
 
     this.children.chatDate = new Label({
@@ -89,12 +83,14 @@ class ChatPageBase extends Block<IChatPageProps> {
 
       onDeleteUser: () => {
         this.setProps({ modals: { chat_settings: false } });
-        ChatsController.getUsersFromChat(store.getState().selectedChat!).then((response:IUser[]) => {
-          this.setProps({ modals: { chat_delete_user: true } });
-          (this.children.deleteUserPopup as DeleteUserPopup).setProps({
-            users: response
-          })
-        })
+        ChatsController.getUsersFromChat(store.getState().selectedChat!).then(
+          (response: IUser[]) => {
+            this.setProps({ modals: { chat_delete_user: true } });
+            (this.children.deleteUserPopup as DeleteUserPopup).setProps({
+              users: response,
+            });
+          }
+        );
       },
     });
 
@@ -118,25 +114,39 @@ class ChatPageBase extends Block<IChatPageProps> {
       },
     });
     this.children.messenger = new Messenger({});
-    this.children.messageInput = new Input({
-      type: "text",
-      name: "message",
-      placeholder: "Введите ваше сообщение",
-    });
-
-    this.children.sendButton = new Button({
-      label: "",
+    this.children.messageForm = new Form({
+      id: "messageForm",
+      fields: [
+        {
+          input: {
+            type: "text",
+            name: "message",
+            placeholder: "Введите ваше сообщение",
+          },
+          class: "messenger-field",
+        },
+      ],
+      button: {
+        label: "",
+        type: "submit",
+        events: {
+          click: (e) => {
+            e.preventDefault();
+            const form = this.children.messageForm as Form;
+            const form_values = form.getValues();
+            if (form.getValues() !== "") {
+              MessagesController.sendMessage(
+                this.props.selectedChat!,
+                form_values.message
+              );
+              form.reset();
+            }
+          },
+        },
+      },
       events: {
-        click: (e) => {
+        submit: (e: Event) => {
           e.preventDefault();
-          const input = this.children.messageInput as Input;
-          if (input.getValue() !== "") {
-            MessagesController.sendMessage(
-              this.props.selectedChat!,
-              input.getValue()
-            );
-            input.setValue("");
-          }
         },
       },
     });
@@ -158,6 +168,7 @@ class ChatPageBase extends Block<IChatPageProps> {
         value: this.props.selectedChat.toString(),
       });
     }
+
     return true;
   }
 
