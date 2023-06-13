@@ -1,4 +1,4 @@
-<div class={{class}}>
-    {{message_text}}
+<div class={{#if isMine}} "message_right" {{else}} "message_left" {{/if}} >
+    {{content}}
     <span class="message_time">{{message_time}}</span>
 </div>

@@ -6,6 +6,7 @@ interface IInputProps {
   name?: string;
   placeholder?: string;
   class?: string;
+  id?: string;
   events?: {
     focus?: () => void;
     blur?: () => void;
@@ -13,13 +14,13 @@ interface IInputProps {
 }
 
 export class Input extends Block<IInputProps, HTMLInputElement> {
-  init() {
-    console.log("Input inited");
+  setValue(value:string) {
+    return (this.element as HTMLInputElement).value = value;
   }
-
-  get value() {
+  getValue() {
     return (this.element as HTMLInputElement).value;
   }
+
 
   render() {
     return this.compile(template, this.props);

@@ -1,6 +1,6 @@
-import { EventBus } from "../utils/EventBus";
-import { nanoid } from "nanoid";
-import { TemplateDelegate } from "handlebars";
+import {EventBus} from "../utils/EventBus";
+import {nanoid} from "nanoid";
+import {TemplateDelegate} from "handlebars";
 
 export default class Block<
   P extends Record<string, any> = any,
@@ -89,11 +89,20 @@ export default class Block<
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected init() {}
 
   _componentDidMount() {
     this.componentDidMount();
+
+    Object.values(this.children).forEach((child: Block) => {
+      if(Array.isArray(child)) {
+        child.map((c) => {
+          c.dispatchComponentDidMount();
+        })
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   protected compile(template: TemplateDelegate, context: any) {
@@ -115,7 +124,6 @@ export default class Block<
 
     temp.innerHTML = html;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Object.entries(this.children).forEach(([_, component]) => {
       if (Array.isArray(component)) {
         component.forEach((child) => {
@@ -141,9 +149,7 @@ export default class Block<
     return temp.content;
   }
 
-  protected componentDidMount() {
-    return true;
-  }
+  protected componentDidMount() {}
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -165,7 +171,7 @@ export default class Block<
     }
   }
 
-  componentDidUpdate(oldProps: P, newProps: P) {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
@@ -173,7 +179,6 @@ export default class Block<
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
   };
 
@@ -213,9 +218,11 @@ export default class Block<
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value) {
+        const oldProps = {...target};
+
         if (target[prop as keyof P] !== value) {
           target[prop as keyof P] = value;
-          self.eventBus().emit(Block.EVENTS.FLOW_CDU);
+          self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         }
         return true;
       },
@@ -228,7 +235,7 @@ export default class Block<
   }
 
   show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "grid";
   }
 
   hide() {

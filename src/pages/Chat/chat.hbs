@@ -1,55 +1,55 @@
-<main>
-    <div class="chats-container__grid">
-        <div class="chats__grid">
-            <div class="chat-search">
-                {{{labelProfile}}}
-                <div class="input-search__field">
-                    {{{inputSearch}}}
-                </div>
-                <hr>
-            </div>
-
-
-            <div class="chats-profiles__container">
-                <div class="chat-profiles">
-                    {{{chatMessageItem1}}}
-                    {{{chatMessageItem2}}}
-                    {{{chatMessageItem3}}}
-                    {{{chatMessageItem4}}}
-                    {{{chatMessageItem5}}}
-                </div>
-            </div>
-        </div>
-
-        <div class="messages-grid">
-            <div class="companion-info__wrapper">
-                {{{smallAvatar}}}
-                <div class="profile-info__name messages">
-                    <span>Любимый &#10084; </span>
-                </div>
-                {{{contextMenu}}}
-            </div>
+<div class="chats-container__grid">
+    {{#if isChatAddPopupShown}}
+    {{{addChatPopup}}}
+    {{/if}}
+    <div class="chats__grid">
+        <div class="chat-profile__label">
+            {{{labelProfile}}}
+            <br><br>
+            
             <hr>
-            <div class="messages-date">Сегодня</div>
+            
+        </div>
+        <div class="chat-adduser__label">{{{labelCreateChat}}}</div>
+        <hr>
 
-            <div class="messages__container">
-                {{{messageLeft}}}
-                {{{messageRight}}}
-            </div>
-
-            <div class="footer">
-                <hr>
-                <div class="messages-field__container">
-
-                    <p><a href="/"><img class="messages-clip__icon" src="clip.png" width="32px" height="32px"></img></a>
-                    </p>
-                    <div class="messages-field__input">{{{messagesField}}}</div>
-                    <div class="messages-field__button">
-                        {{{sendButton}}}
-                    </div>
-
-                </div>
-            </div>
+        <div class="chats-list__container">
+            {{{chatsList}}}
         </div>
     </div>
-</main>
+
+
+    {{#if isSelectedChat}}
+    <div class="messages-grid">
+        <div class="companion-info__wrapper">
+            <div class="avatar_small"></div>
+            <div class="profile-info__name">
+                {{{chatTitle}}}
+            </div>
+            <div>
+                {{{contextMenu}}}
+                {{#if isChatSettingsPopupShown}}
+                {{{chatSettingsMenu}}}
+                {{/if}}
+                {{#if isChatDeletePopupShown}}
+                {{{deleteChatPopup}}}
+                {{/if}}
+                {{#if isUserAddPopupShown}}
+                {{{addUserPopup}}}
+                {{/if}}
+                {{#if isUserDeletePopupShown}}
+                {{{deleteUserPopup}}}
+                {{/if}}
+            </div>
+        </div>
+        <hr>
+        <div class="messages-date">{{{chatDate}}}</div>
+            {{{messenger}}}
+        <div class="footer">
+            {{{messageForm}}}
+        </div>
+    </div>
+    {{else}}
+    <div class="chat-stub">Please select a chat..</div>
+    {{/if}}
+</div>

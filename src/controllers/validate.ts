@@ -16,10 +16,10 @@ const validateList: Record<string, RegExp> = {
   message: /.*/,
 };
 
-export function validate(type: string, value: string): string {
-  const re = validateList[type];
+export function validate(name: string, value: string): string {
+  const re = validateList[name];
   if (re && (!value || !value.trim())) {
-    return "Empty";
+    return "Поле не может быть пустым";
   }
 
   if (!value.match(re)) {

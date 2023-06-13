@@ -2,14 +2,17 @@ import Block from "../Block";
 import Button from "../Button";
 import template from "./form.hbs";
 import Field from "../../blocks/Field";
+import { validate } from "../../controllers/validate";
 
 interface IFormValidationErrorProps {
   error_message?: string;
 }
+
 interface IFormFieldProps {
   input: {
     type: string;
     name?: string;
+    id?: string;
     placeholder?: string;
     className?: string;
     events?: {
@@ -18,25 +21,30 @@ interface IFormFieldProps {
     };
     validation_error?: IFormValidationErrorProps;
   };
+  class?: string;
 }
 
 interface IFormButtonProps {
   label: string;
+  events?: {
+    click: (e: Event) => void;
+  };
   type?: string;
   class?: string;
 }
 
 interface IFormProps {
-  fields: IFormFieldProps[] | IFormFieldProps;
-  buttons: IFormButtonProps;
+  fields: IFormFieldProps[];
+  button?: IFormButtonProps;
   class?: string;
+  id?: string;
   events?: {
     submit: (event: Event) => void;
   };
 }
 
 export class Form extends Block<IFormProps, HTMLFormElement> {
- init() {
+  init() {
     const form_fields: Field[] = [];
     if (Array.isArray(this.props.fields)) {
       this.props.fields.forEach((field: IFormFieldProps) => {
@@ -45,26 +53,29 @@ export class Form extends Block<IFormProps, HTMLFormElement> {
     }
     this.children.fields = form_fields;
 
-    this.children.button = new Button(this.props.buttons);
+    if (this.props.button) {
+      this.children.button = new Button(this.props.button);
+    }
   }
 
   render() {
     return this.compile(template, this.props);
   }
 
-  dispatchComponentDidMount(): void {
-    this.setProps({ events: { submit: (e: Event) => this.handleSubmit(e) } });
-  }
-
-  handleSubmit(event: Event) {
-    event.preventDefault();
-
+  getValues(): any {
     const formData = new FormData(this.element as HTMLFormElement);
-    let data_object = {};
+    const data_object = {};
 
     for (const [name, value] of formData) {
-      data_object = Object.assign(data_object, { [name]: value });
+      if (validate(name, value.toString()) !== "") {
+        return;
+      }
+      Object.assign(data_object, { [name]: value });
     }
-    console.log(data_object);
+    return data_object;
+  }
+
+  reset() {
+    (this.element as HTMLFormElement).reset();
   }
 }

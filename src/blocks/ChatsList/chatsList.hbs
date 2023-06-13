@@ -1,0 +1,11 @@
+<div class="chats__container">
+    <div>
+        {{#if isLoaded }}
+            {{#each chats}}
+                {{{this}}}
+            {{/each}}
+        {{else}}
+        Loading...
+        {{/if}}
+    </div>
+</div>

@@ -1,8 +1,8 @@
 import Block from "../../components/Block";
 import Input from "../../components/Input";
 import ValidationError from "../../components/ValidationError";
-import template from "./field.hbs";
 import { validate } from "../../controllers/validate";
+import template from "./field.hbs";
 
 interface IFieldInputProps {
   type: string;
@@ -22,6 +22,7 @@ interface IFieldValidationErrorProps {
 interface IFieldProps {
   input: IFieldInputProps;
   validation_error?: IFieldValidationErrorProps;
+  class?: string;
 }
 
 export class Field extends Block<IFieldProps> {
@@ -31,26 +32,21 @@ export class Field extends Block<IFieldProps> {
       name: this.props.input.name,
       placeholder: this.props.input.placeholder,
       events: {
-        focus: () => {
-          const value = (this.children.input as Input).value;
-          (this.children.validation_error as ValidationError).setProps({
-            error_message: validate(this.props.input.name, value),
-          });
-        },
         blur: () => {
-          const value = (this.children.input as Input).value;
+          const value = (this.children.input as Input).getValue();
           (this.children.validation_error as ValidationError).setProps({
-            error_message: validate(this.props.input.name, value),
+            error_message: validate(this.props.input.name!, value),
           });
         },
       },
     });
+
     this.children.validation_error = new ValidationError(
       this.props.validation_error
     );
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, this.props);
   }
 }

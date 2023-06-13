@@ -2,7 +2,10 @@ import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
 import Block from "../../components/Block";
 import template from "./authorization.hbs";
-import { renderDOM } from "../../utils/renderDOM";
+import AuthController from "../../controllers/AuthController";
+import router from "../../utils/Router";
+import { Routes } from "../../index";
+import { ISignInData } from "../../api/AuthApi";
 
 export default class AuthorizationPage extends Block {
   init() {
@@ -23,8 +26,14 @@ export default class AuthorizationPage extends Block {
           },
         },
       ],
-      buttons: {
+      button: {
         label: "Авторизоваться",
+        events: {
+          click: (e) => {
+            e.preventDefault();
+            this.onSubmit();
+          },
+        },
       },
       class: "auth-form",
     });
@@ -33,15 +42,23 @@ export default class AuthorizationPage extends Block {
       link1: {
         value: "Вход",
         events: {
-          click: () => renderDOM("authorization")
-        }
+          click: () => router.go(Routes.Index),
+        },
       },
       link2: {
         value: "Регистрация",
         events: {
-          click: () => renderDOM("registration")
-        }
+          click: () => router.go(Routes.Register),
+        },
       },
+    });
+  }
+
+  onSubmit() {
+    const data = (this.children.formAuth as Form).getValues();
+    if (!data) return;
+    AuthController.signin(data as ISignInData).then(() => {
+      (this.children.formAuth as Form).reset();
     });
   }
 

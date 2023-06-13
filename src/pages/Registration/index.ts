@@ -2,6 +2,8 @@ import Form from "../../components/Form";
 import Navigation from "../../blocks/Navigation";
 import Block from "../../components/Block";
 import template from "./registration.hbs";
+import AuthController from "../../controllers/AuthController";
+import { ISignUpData } from "../../api/AuthApi";
 
 export default class RegistrationPage extends Block {
   init() {
@@ -50,24 +52,32 @@ export default class RegistrationPage extends Block {
           },
         },
       ],
-      buttons: {
+      button: {
         label: "Зарегистрироваться",
+        events: {
+          click: (e) => {
+            e.preventDefault();
+            this.onSubmit();
+          },
+        },
       },
       class: "register-form",
     });
 
-    this.children.navigation = new Navigation({
-      link1: "/",
-      link2: "///",
-      menu_title1: "Вход",
-      menu_title2: "Регистрация",
-      events: {
-        click: () => console.log("navigation"),
-      },
-    });
+    this.children.navigation = new Navigation({});
   }
 
   render() {
     return this.compile(template, this.props);
+  }
+
+  onSubmit() {
+    const data = (this.children.formRegister as Form).getValues();
+    if (!data) {
+      return;
+    }
+    AuthController.signup(data as ISignUpData).then(() =>
+      (this.children.formRegister as Form).reset()
+    );
   }
 }
