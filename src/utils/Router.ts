@@ -106,6 +106,11 @@ class Router {
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
   }
+
+  public reset() {
+    this.routes = [];
+    this.currentRoute = null;
+  }
 }
 
 export default new Router("#app");
