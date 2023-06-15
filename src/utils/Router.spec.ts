@@ -1,4 +1,4 @@
-import Sinon = require("sinon");
+import * as Sinon from "sinon";
 import Router from "./Router";
 import { expect } from "chai";
 import { describe } from "mocha";

@@ -1,10 +1,10 @@
-import sinon = require("sinon");
+import * as Sinon from "sinon";
 import { Button } from "./Button";
 import { expect } from "chai";
 
 describe("button tests", () => {
   it("Should call router.go on click", function () {
-    const navigateMock = sinon.mock();
+    const navigateMock = Sinon.mock();
 
     const instance = new Button({
       label: "click",

@@ -1,5 +1,5 @@
 import Block from "../../components/Block";
-import Input from "../../components/Input";
+import Input from "../../components/Input/Input";
 import ValidationError from "../../components/ValidationError";
 import { validate } from "../../controllers/validate";
 import template from "./field.hbs";

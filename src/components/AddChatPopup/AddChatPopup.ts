@@ -1,4 +1,4 @@
-import Input from "../Input";
+import Input from "../Input/Input";
 import Button from "../Button";
 import ChatController from "../../controllers/ChatsController";
 import template from "./addChatPopup.hbs";

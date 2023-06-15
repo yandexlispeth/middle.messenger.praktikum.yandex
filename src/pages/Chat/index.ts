@@ -4,7 +4,6 @@ import ChatsList from "../../blocks/ChatsList";
 import ContextMenu from "../../blocks/ContextMenu";
 import AddChatPopup from "../../components/AddChatPopup";
 import AddUserPopup from "../../components/AddUserPopup";
-import Avatar from "../../components/Avatar";
 import Block from "../../components/Block";
 import ChatSettingsPopup from "../../components/ChatSettingsPopup";
 import DeleteChatConfirmPopup from "../../components/DeleteChatConfirmPopup";
@@ -153,7 +152,7 @@ class ChatPageBase extends Block<IChatPageProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: IChatPageProps,
+    _oldProps: IChatPageProps,
     newProps: IChatPageProps
   ) {
     if (newProps.chats) {

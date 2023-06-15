@@ -18,7 +18,7 @@ export class MessengerBase extends Block<IMessengerProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: IMessengerProps,
+    _oldProps: IMessengerProps,
     newProps: IMessengerProps
   ): boolean {
     this.children.messages = this.createMessages(newProps);

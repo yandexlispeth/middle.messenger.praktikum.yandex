@@ -5,7 +5,7 @@ import template from "./user_settings.hbs";
 import Button from "../../components/Button";
 import Router from "../../utils/Router";
 import { Routes } from "../..";
-import store, { withStore } from "../../utils/Store";
+import { withStore } from "../../utils/Store";
 import AuthController from "../../controllers/AuthController";
 import UserController from "../../controllers/UserController";
 import { IUser } from "../../api/AuthApi";

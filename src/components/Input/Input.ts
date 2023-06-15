@@ -13,7 +13,7 @@ interface IInputProps {
   };
 }
 
-export class Input extends Block<IInputProps, HTMLInputElement> {
+export default class Input extends Block<IInputProps, HTMLInputElement> {
   setValue(value:string) {
     return (this.element as HTMLInputElement).value = value;
   }

@@ -1,4 +1,4 @@
-import Sinon = require("sinon");
+import * as Sinon from "sinon";
 import{ SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic } from "sinon"
 import HTTPTransport from "./HttpTransport";
 import { expect } from "chai"
