@@ -2,7 +2,7 @@ import Block from "../components/Block";
 import Router from "./Router";
 
 export interface WithRouterProps {
-    router?: typeof Router;
+    router?: typeof Router; 
   }
   
   export function withRouter(Component: typeof Block<any>) {
