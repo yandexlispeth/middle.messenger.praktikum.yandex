@@ -2,26 +2,27 @@ import * as Sinon from "sinon";
 import { Button } from "./Button";
 import { expect } from "chai";
 
-describe("button tests", () => {
-  it("Should call router.go on click", function () {
+describe("Тесты на компонент Button", () => {
+  it("по клику вызывает переданный обработчик", function () {
     const navigateMock = Sinon.mock();
 
     const instance = new Button({
       label: "click",
-      class: "btn",
+      class: "button",
       events: {
-        click: () => navigateMock,
+        click: (e:Event) => navigateMock(),
       },
     });
 
     const elem = instance.element;
 
+    console.log("AADD", navigateMock);
     elem?.click();
 
     expect(navigateMock.callCount).to.eq(1);
   });
 
-  it("should render button with correct label", function () {
+  it("должен иметь актуальный лейбл", function () {
     const label = "click";
 
     const instance = new Button({

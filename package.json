@@ -7,7 +7,9 @@
     "dev": "webpack serve",
     "build": "webpack --mode=development --node-env=development",
     "test": "./node_modules/.bin/mocha --require ts-node/register --require tsconfig-paths/register --require ./mochaSetup.js './src/**/*.spec.ts'",
-    "eslint": "node_modules/.bin/eslint . --fix"
+    "eslint": "node_modules/.bin/eslint . --fix",
+    "watch": "webpack --watch",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -73,10 +75,5 @@
     "mini-css-extract-plugin": "2.7.6",
     "node": "20.2.0",
     "sinon": "15.1.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test eslint"
-    }
   }
 }

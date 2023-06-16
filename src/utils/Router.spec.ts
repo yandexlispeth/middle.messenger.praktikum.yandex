@@ -14,14 +14,14 @@ describe("Router", () => {
   });
 
   describe("Функция back", () => {
-    it("should call back function once", function () {
+    it("должна вызываться один раз", function () {
       Router.back();
 
       expect((window.history.back as any).callCount).to.eq(1);
     });
   });
-  describe("function forward", () => {
-    it("should call forward function once", function () {
+  describe("Функция вперёд", () => {
+    it("должны вызываться один раз", function () {
       Router.forward();
 
       expect((window.history.forward as any).callCount).to.eq(1);
