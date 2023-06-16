@@ -48,7 +48,7 @@ class ChatPageBase extends Block<IChatPageProps> {
     this.children.labelCreateChat = new Link({
       label: "Новый чат",
       events: {
-        click: (e: MouseEvent) => {
+        click: (e: Event) => {
           e.preventDefault();
           this.setProps({ modals: { chat_add: true } });
         },
@@ -83,7 +83,7 @@ class ChatPageBase extends Block<IChatPageProps> {
       onDeleteUser: () => {
         this.setProps({ modals: { chat_settings: false } });
         ChatsController.getUsersFromChat(store.getState().selectedChat!).then(
-          (response: IUser[]) => {
+          (response: IUser[] | undefined) => {
             this.setProps({ modals: { chat_delete_user: true } });
             (this.children.deleteUserPopup as DeleteUserPopup).setProps({
               users: response,

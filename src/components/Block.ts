@@ -94,7 +94,7 @@ export default class Block<
   _componentDidMount() {
     this.componentDidMount();
 
-    Object.values(this.children).forEach((child: Block) => {
+    Object.values(this.children).forEach((child: Block | Block[]) => {
       if(Array.isArray(child)) {
         child.map((c) => {
           c.dispatchComponentDidMount();

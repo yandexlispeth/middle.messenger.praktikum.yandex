@@ -22,7 +22,7 @@ describe("button tests", () => {
   });
 
   it("should render button with correct label", function () {
-    const label = " click me ";
+    const label = "click";
 
     const instance = new Button({
         label: "click",
