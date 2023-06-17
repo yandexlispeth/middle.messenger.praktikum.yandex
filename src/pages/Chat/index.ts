@@ -12,7 +12,10 @@ import Form from "../../components/Form";
 import Label from "../../components/Label";
 import Link from "../../components/Link";
 import { Messenger } from "../../components/Messenger";
-import { default as ChatController, default as ChatsController } from "../../controllers/ChatsController";
+import {
+  default as ChatController,
+  default as ChatsController,
+} from "../../controllers/ChatsController";
 import MessagesController from "../../controllers/MessagesController";
 import { Routes } from "../../index";
 import store, { withStore } from "../../utils/Store";
@@ -133,7 +136,7 @@ class ChatPageBase extends Block<IChatPageProps> {
             e.preventDefault();
             const form = this.children.messageForm as Form;
             const form_values = form.getValues();
-            if (form.getValues() !== "") {
+            if (form.getValues().message.trim() !== "") {
               MessagesController.sendMessage(
                 this.props.selectedChat!,
                 form_values.message

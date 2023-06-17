@@ -172,6 +172,8 @@ export default class Block<
     }
   }
 
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(_oldProps: P, _newProps: P) {
     return true;
   }

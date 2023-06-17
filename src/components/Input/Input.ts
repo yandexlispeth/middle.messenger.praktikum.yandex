@@ -3,6 +3,7 @@ import Block from "../Block";
 
 interface IInputProps {
   type: string;
+  value?: string;
   name?: string;
   placeholder?: string;
   class?: string;

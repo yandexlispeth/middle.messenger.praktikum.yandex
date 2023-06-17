@@ -28,4 +28,4 @@ Warm lamp chat - это приложение для общения в тёпло
 Ссылка на макеты: https://www.figma.com/file/qsaAnuoHn6gyA7YnNpfujD/WebChat?node-id=2%3A9&t=vmyGnXbX61hjlXWO-0
 Макеты находятся в стадии разработки. Допускаются изменения в существующие макеты в будущих версиях приложения.
 
-Домен из Netlify  https://sprightly-basbousa-9804c6.netlify.app/
+Домен из Netlify  https://deploy-preview-5--sprightly-basbousa-9804c6.netlify.app/

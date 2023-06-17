@@ -10,7 +10,7 @@ describe("Тесты на компонент Button", () => {
       label: "click",
       class: "button",
       events: {
-        click: (e:Event) => navigateMock(),
+        click: () => navigateMock(),
       },
     });
 
