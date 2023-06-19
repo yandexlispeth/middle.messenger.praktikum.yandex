@@ -5,7 +5,7 @@ import template from "./user_settings.hbs";
 import Button from "../../components/Button";
 import Router from "../../utils/Router";
 import { Routes } from "../..";
-import store, { withStore } from "../../utils/Store";
+import { withStore } from "../../utils/Store";
 import AuthController from "../../controllers/AuthController";
 import UserController from "../../controllers/UserController";
 import { IUser } from "../../api/AuthApi";
@@ -14,6 +14,10 @@ import Link from "../../components/Link";
 interface IUserSettingsPageBase {
   avatar: string;
   first_name: string;
+  second_name: string;
+  login: string;
+  display_name: string;
+  phone: string;
   email: string;
 }
 
@@ -73,50 +77,7 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
     });
 
     this.children.formUserSettings = new Form({
-      fields: [
-        {
-          input: {
-            type: "text",
-            name: "email",
-            placeholder: "Почта",
-          },
-        },
-        {
-          input: {
-            type: "text",
-            name: "login",
-            placeholder: "Логин",
-          },
-        },
-        {
-          input: {
-            type: "text",
-            name: "display_name",
-            placeholder: "Ник",
-          },
-        },
-        {
-          input: {
-            type: "text",
-            name: "phone",
-            placeholder: "Телефон",
-          },
-        },
-        {
-          input: {
-            type: "text",
-            name: "first_name",
-            placeholder: "Имя",
-          },
-        },
-        {
-          input: {
-            type: "text",
-            name: "second_name",
-            placeholder: "Фамилия",
-          },
-        },
-      ],
+      fields: this.makeData(this.props),
       button: {
         label: "Сохранить изменения",
         events: {
@@ -151,6 +112,12 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
       });
     }
 
+    if (oldProps !== newProps) {
+      (this.children.formUserSettings as Form).setProps({
+        fields: this.makeData(newProps),
+      });
+    }
+
     return true;
   }
 
@@ -162,6 +129,61 @@ class UserSettingsPageBase extends Block<IUserSettingsPageBase> {
     UserController.changeProfile(data as IUser).then(() => {
       (this.children.formUserSettings as Form).reset();
     });
+  }
+
+  makeData(props: IUserSettingsPageBase) {
+    const data = [
+      {
+        input: {
+          type: "text",
+          name: "email",
+          value: props.email,
+          placeholder: "Почта",
+        },
+      },
+      {
+        input: {
+          type: "text",
+          name: "login",
+          value: props.login,
+          placeholder: "Логин",
+        },
+      },
+      {
+        input: {
+          type: "text",
+          name: "display_name",
+          value: props.display_name,
+          placeholder: "Ник",
+        },
+      },
+      {
+        input: {
+          type: "text",
+          name: "phone",
+          value: props.phone,
+          placeholder: "Телефон",
+        },
+      },
+      {
+        input: {
+          type: "text",
+          name: "first_name",
+          value: props.first_name,
+          placeholder: "Имя",
+        },
+      },
+      {
+        input: {
+          type: "text",
+          name: "second_name",
+          value: props.second_name,
+          placeholder: "Фамилия",
+        },
+      },
+    ];
+
+    return data;
   }
 
   render() {

@@ -13,7 +13,6 @@ const validateList: Record<string, RegExp> = {
   newPasswordAgain:
     /^(?=^.{8,40}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
   phone: /^\+?\d{10,15}$/,
-  message: /.*/,
 };
 
 export function validate(name: string, value: string): string {

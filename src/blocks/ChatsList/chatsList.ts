@@ -12,7 +12,7 @@ interface IChatsListProps {
 
 export class ChatsList extends Block<IChatsListProps> {
   protected componentDidUpdate(
-    oldProps: IChatsListProps,
+    _oldProps: IChatsListProps,
     newProps: IChatsListProps
   ): boolean {
     

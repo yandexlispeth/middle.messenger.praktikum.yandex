@@ -4,7 +4,6 @@ import ChatsList from "../../blocks/ChatsList";
 import ContextMenu from "../../blocks/ContextMenu";
 import AddChatPopup from "../../components/AddChatPopup";
 import AddUserPopup from "../../components/AddUserPopup";
-import Avatar from "../../components/Avatar";
 import Block from "../../components/Block";
 import ChatSettingsPopup from "../../components/ChatSettingsPopup";
 import DeleteChatConfirmPopup from "../../components/DeleteChatConfirmPopup";
@@ -13,7 +12,10 @@ import Form from "../../components/Form";
 import Label from "../../components/Label";
 import Link from "../../components/Link";
 import { Messenger } from "../../components/Messenger";
-import { default as ChatController, default as ChatsController } from "../../controllers/ChatsController";
+import {
+  default as ChatController,
+  default as ChatsController,
+} from "../../controllers/ChatsController";
 import MessagesController from "../../controllers/MessagesController";
 import { Routes } from "../../index";
 import store, { withStore } from "../../utils/Store";
@@ -49,7 +51,7 @@ class ChatPageBase extends Block<IChatPageProps> {
     this.children.labelCreateChat = new Link({
       label: "Новый чат",
       events: {
-        click: (e: MouseEvent) => {
+        click: (e: Event) => {
           e.preventDefault();
           this.setProps({ modals: { chat_add: true } });
         },
@@ -84,7 +86,7 @@ class ChatPageBase extends Block<IChatPageProps> {
       onDeleteUser: () => {
         this.setProps({ modals: { chat_settings: false } });
         ChatsController.getUsersFromChat(store.getState().selectedChat!).then(
-          (response: IUser[]) => {
+          (response: IUser[] | undefined) => {
             this.setProps({ modals: { chat_delete_user: true } });
             (this.children.deleteUserPopup as DeleteUserPopup).setProps({
               users: response,
@@ -134,7 +136,7 @@ class ChatPageBase extends Block<IChatPageProps> {
             e.preventDefault();
             const form = this.children.messageForm as Form;
             const form_values = form.getValues();
-            if (form.getValues() !== "") {
+            if (form.getValues().message.trim() !== "") {
               MessagesController.sendMessage(
                 this.props.selectedChat!,
                 form_values.message
@@ -153,7 +155,7 @@ class ChatPageBase extends Block<IChatPageProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: IChatPageProps,
+    _oldProps: IChatPageProps,
     newProps: IChatPageProps
   ) {
     if (newProps.chats) {

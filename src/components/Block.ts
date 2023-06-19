@@ -1,6 +1,6 @@
 import {EventBus} from "../utils/EventBus";
-import {nanoid} from "nanoid";
 import {TemplateDelegate} from "handlebars";
+import {nanoid} from "nanoid";
 
 export default class Block<
   P extends Record<string, any> = any,
@@ -18,7 +18,7 @@ export default class Block<
   public children: Record<string, Block | Block[]>;
   private eventBus: () => EventBus;
   private _element: E | null = null;
-  private _meta: { props: P };
+  // private _meta: { props: P };
 
   /** JSDoc
    * @param {Object} propsWithChildren
@@ -30,9 +30,9 @@ export default class Block<
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
-    this._meta = {
-      props,
-    };
+    // this._meta = {
+    //   props,
+    // };
 
     this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
@@ -94,7 +94,7 @@ export default class Block<
   _componentDidMount() {
     this.componentDidMount();
 
-    Object.values(this.children).forEach((child: Block) => {
+    Object.values(this.children).forEach((child: Block | Block[]) => {
       if(Array.isArray(child)) {
         child.map((c) => {
           c.dispatchComponentDidMount();
@@ -124,6 +124,7 @@ export default class Block<
 
     temp.innerHTML = html;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Object.entries(this.children).forEach(([_, component]) => {
       if (Array.isArray(component)) {
         component.forEach((child) => {
@@ -171,7 +172,9 @@ export default class Block<
     }
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected componentDidUpdate(_oldProps: P, _newProps: P) {
     return true;
   }
 
@@ -242,3 +245,5 @@ export default class Block<
     this.getContent()!.style.display = "none";
   }
 }
+
+

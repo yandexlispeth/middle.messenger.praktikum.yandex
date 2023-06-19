@@ -8,7 +8,7 @@ export enum Method {
 
 type Options = {
     method: Method;
-    data?: any;
+    data?: unknown;
     timeout?: number;
 };
 

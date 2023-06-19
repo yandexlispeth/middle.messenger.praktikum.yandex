@@ -4,9 +4,9 @@ class Route {
   private pathname: string;
   private blockClass: typeof Block;
   private block: Block | null;
-  private props: any;
+  private props: unknown;
 
-  constructor(pathname: string, view: typeof Block, props: any) {
+  constructor(pathname: string, view: typeof Block, props: unknown) {
     this.pathname = pathname;
     this.blockClass = view;
     this.block = null;
@@ -35,14 +35,14 @@ class Route {
       this.block = new this.blockClass();
     }
 
-    const root = document.querySelector(this.props);
+    const root = document.querySelector(this.props as string);
 
     if (!root) {
       throw new Error("Root not found");
     }
 
     root.textContent = "";
-    root.appendChild(this.block.getContent());
+    root.appendChild(this.block.getContent() as Node);
     this.block.show();
   }
 }
@@ -105,6 +105,11 @@ class Router {
 
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  public reset() {
+    this.routes = [];
+    this.currentRoute = null;
   }
 }
 

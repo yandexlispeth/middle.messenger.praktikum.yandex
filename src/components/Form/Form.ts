@@ -12,6 +12,7 @@ interface IFormFieldProps {
   input: {
     type: string;
     name?: string;
+    value?: string;
     id?: string;
     placeholder?: string;
     className?: string;
@@ -56,6 +57,20 @@ export class Form extends Block<IFormProps, HTMLFormElement> {
     if (this.props.button) {
       this.children.button = new Button(this.props.button);
     }
+  }
+
+  protected componentDidUpdate(
+    _oldProps: IFormProps,
+    _newProps: IFormProps
+  ): boolean {
+    if (_oldProps !== _newProps) {
+      this.props.fields.forEach((prop) => {
+        (this.children.fields as Block[]).forEach((field) => {
+          field.setProps(prop);
+        })
+      });
+    }
+    return true;
   }
 
   render() {

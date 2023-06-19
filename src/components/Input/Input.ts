@@ -3,6 +3,7 @@ import Block from "../Block";
 
 interface IInputProps {
   type: string;
+  value?: string;
   name?: string;
   placeholder?: string;
   class?: string;
@@ -13,7 +14,7 @@ interface IInputProps {
   };
 }
 
-export class Input extends Block<IInputProps, HTMLInputElement> {
+export default class Input extends Block<IInputProps, HTMLInputElement> {
   setValue(value:string) {
     return (this.element as HTMLInputElement).value = value;
   }

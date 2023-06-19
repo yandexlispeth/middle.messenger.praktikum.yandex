@@ -3,10 +3,10 @@ import AuthorizationPage from "./pages/Authorization";
 import { ChatPage } from "./pages/Chat";
 import RegistrationPage from "./pages/Registration";
 import UserChangePasswordPage from "./pages/UserChangePassword";
-
 import Router from "./utils/Router";
 import AuthController from "./controllers/AuthController";
 import { UserSettingsPage } from "./pages/UserSettings";
+import style from "./style.pcss";
 
 export enum Routes {
   Index = "/",
@@ -17,6 +17,7 @@ export enum Routes {
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
+  style;
   const router = Router;
 
   router

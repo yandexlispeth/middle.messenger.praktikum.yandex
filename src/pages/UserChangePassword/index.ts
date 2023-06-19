@@ -67,7 +67,7 @@ export default class UserChangePasswordPage extends Block {
     if (!data) {
       return;
     }
-    UserController.change_password(data as IUserChangePassword).then(() => {
+    UserController.changePassword(data as IUserChangePassword).then(() => {
       this.dispatchComponentDidMount();
       (this.children.formUserChangePassword as Form).reset();
     });

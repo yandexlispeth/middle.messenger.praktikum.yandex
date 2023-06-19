@@ -4,7 +4,8 @@
   --chats-font-color: #999;
   --chats-profile-name-color: #000;
   --chats-messages-color: #1e1e1e;
-  --chats-avatar-bgcolor: #B1C3EF;
+  --chats-avatar-bgcolor: #b1c3ef;
+  --chats-messages-grid: #f2f3f7;
 }
 
 .chats-container__grid {
@@ -92,7 +93,7 @@
 .messages-grid {
   position: relative;
   padding: 10px;
-  background-color: rgb(242, 243, 247);
+  background-color: var(--chats-messages-grid);
 }
 
 .companion-info__wrapper {
@@ -150,9 +151,6 @@
   display: inline-block;
   position: relative;
   bottom: 12px;
-}
-
-.footer button {
   width: 35px;
   height: 35px;
   border-radius: 50%;

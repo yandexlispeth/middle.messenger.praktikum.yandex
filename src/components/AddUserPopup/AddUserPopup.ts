@@ -1,4 +1,4 @@
-import Input from "../Input";
+import Input from "../Input/Input";
 import Button from "../Button";
 import template from "./addUserPopup.hbs";
 import store from "../../utils/Store";
@@ -34,18 +34,18 @@ export class AddUserPopup extends Block<IAddUserPopup> {
         click: () => {
           (this.element as HTMLElement).remove();
           store.set("foundUsers", []);
-        }
+        },
       },
     });
 
     this.children.userList = new UsersList({
-      onUserItemClick: (user_id:number) => {
+      onUserItemClick: (user_id: number) => {
         this.props.onUserItemClick(user_id);
-        (this.children.inputUserLogin as Input).setValue('');
-      }
+        (this.children.inputUserLogin as Input).setValue("");
+      },
     });
   }
-  
+
   async getUsers(): Promise<IUser[] | undefined> {
     return await UserController.searchUser(
       (this.children.inputUserLogin as Input).getValue()
